@@ -1143,22 +1143,24 @@
       const student = allStudents.find(s => s.id === studentId);
       activeStudent = student;
 
+      const studentSkills = (student && student.skills) ? student.skills.join(', ') : '';
       jobsModalTitle.textContent = `Jobs for ${student ? student.name : 'Student'}`;
-      jobsModalSubtitle.textContent = student 
-        ? `Skills: ${student.skills.join(', ')}` 
+      jobsModalSubtitle.textContent = studentSkills 
+        ? `Target Skills: ${studentSkills}` 
         : 'Loading vacancies...';
 
       jobsModalBody.innerHTML = `
         <div class="loading-state">
           <div class="spinner"></div>
-          <p>Fetching public job vacancies from <strong>Naukri</strong>, <strong>LinkedIn</strong>, and <strong>Indeed</strong>...</p>
+          <p>Fetching real-time vacancies matching <strong>${studentSkills || 'skills'}</strong> from Naukri, LinkedIn, and Indeed...</p>
         </div>
       `;
 
       jobsDialog.showModal();
 
       try {
-        const res = await fetch(`/api/jobs?studentId=${studentId}&includeLive=true`);
+        const skillsParam = (student && student.skills) ? encodeURIComponent(student.skills.join(',')) : '';
+        const res = await fetch(`/api/jobs?studentId=${studentId}&skills=${skillsParam}&includeLive=true&_t=${Date.now()}`);
         const json = await res.json();
 
         if (json.success) {
@@ -1187,7 +1189,7 @@
       jobsDialog.showModal();
 
       try {
-        const res = await fetch(`/api/jobs?includeLive=true`);
+        const res = await fetch(`/api/jobs?includeLive=true&_t=${Date.now()}`);
         const json = await res.json();
 
         if (json.success) {

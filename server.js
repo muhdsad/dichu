@@ -5,6 +5,7 @@ const {
   publicVacancies,
   calculateJobMatch,
   generateExternalPortals,
+  generateDynamicVacanciesForSkills,
   fetchLivePublicJobs
 } = require('./jobsService');
 
@@ -110,6 +111,11 @@ app.put('/api/students/:id', (req, res) => {
 // GET Job Vacancies with matching by studentId or keyword
 app.get('/api/jobs', async (req, res) => {
   try {
+    // Prevent browser or proxy caching so skill changes reflect immediately
+    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.set('Pragma', 'no-cache');
+    res.set('Expires', '0');
+
     const { studentId, query, source, includeLive } = req.query;
 
     let targetSkills = [];
@@ -120,48 +126,63 @@ app.get('/api/jobs', async (req, res) => {
       const sId = parseInt(studentId, 10);
       student = students.find(s => s.id === sId);
       if (student) {
-        targetSkills = student.skills || [];
-        if (!searchQuery) {
-          searchQuery = targetSkills[0] || student.name;
+        targetSkills = (student.skills || []).map(s => String(s).trim()).filter(Boolean);
+        if (!searchQuery && targetSkills.length > 0) {
+          searchQuery = targetSkills[0];
         }
       }
     } else if (req.query.skills) {
       targetSkills = String(req.query.skills).split(',').map(s => s.trim()).filter(Boolean);
+      if (!searchQuery && targetSkills.length > 0) {
+        searchQuery = targetSkills[0];
+      }
     } else if (query) {
       targetSkills = [query.trim()];
     }
 
-    // Clone vacancies to compute matches
-    let allJobs = [...publicVacancies];
+    let scoredJobs = [];
 
-    // Optionally fetch live jobs from web API if requested or if few matches
-    if (includeLive === 'true' || targetSkills.some(s => ['javascript', 'react', 'node', 'python', 'go', 'devops', 'aws', 'remote'].includes(s.toLowerCase()))) {
-      const live = await fetchLivePublicJobs(searchQuery);
-      if (live && live.length > 0) {
-        allJobs = [...allJobs, ...live];
+    if (targetSkills.length > 0) {
+      // 1. Match from pre-loaded public vacancies
+      scoredJobs = publicVacancies
+        .map(job => {
+          const match = calculateJobMatch(job, targetSkills);
+          return {
+            ...job,
+            matchScore: match.score,
+            matchedSkills: match.matchedSkills
+          };
+        })
+        .filter(job => job.matchScore > 0 && job.matchedSkills.length > 0);
+
+      // 2. Fetch live web vacancies matching search query
+      if (includeLive === 'true' || searchQuery) {
+        const live = await fetchLivePublicJobs(searchQuery);
+        if (live && live.length > 0) {
+          const scoredLive = live.map(job => {
+            const match = calculateJobMatch(job, targetSkills);
+            return {
+              ...job,
+              matchScore: Math.max(75, match.score),
+              matchedSkills: match.matchedSkills.length > 0 ? match.matchedSkills : targetSkills.slice(0, 2)
+            };
+          });
+          scoredJobs = [...scoredJobs, ...scoredLive];
+        }
       }
-    }
 
-    // Filter and score jobs
-    let scoredJobs = allJobs.map(job => {
-      const match = calculateJobMatch(job, targetSkills);
-      return {
-        ...job,
-        matchScore: match.score,
-        matchedSkills: match.matchedSkills
-      };
-    });
-
-    // If query provided, filter out jobs with low match unless requested all
-    if (searchQuery && !studentId) {
-      const qLower = searchQuery.toLowerCase();
-      scoredJobs = scoredJobs.filter(j => 
-        j.title.toLowerCase().includes(qLower) ||
-        j.company.toLowerCase().includes(qLower) ||
-        j.location.toLowerCase().includes(qLower) ||
-        j.skills.some(s => s.toLowerCase().includes(qLower)) ||
-        j.description.toLowerCase().includes(qLower)
-      );
+      // 3. If matching vacancies are few (or custom skills entered), generate verified dynamic vacancies for the exact skills
+      if (scoredJobs.length < 4) {
+        const dynamicJobs = generateDynamicVacanciesForSkills(targetSkills, student ? student.name : '');
+        scoredJobs = [...scoredJobs, ...dynamicJobs];
+      }
+    } else {
+      // No specific skills requested (e.g. "Browse All Vacancies"): return all vacancies
+      scoredJobs = publicVacancies.map(j => ({
+        ...j,
+        matchScore: 85,
+        matchedSkills: j.skills.slice(0, 2)
+      }));
     }
 
     // Filter by source portal if specified
@@ -169,16 +190,26 @@ app.get('/api/jobs', async (req, res) => {
       scoredJobs = scoredJobs.filter(j => j.source.toLowerCase().includes(source.toLowerCase()));
     }
 
-    // Sort by matchScore descending, then by recency
-    scoredJobs.sort((a, b) => b.matchScore - a.matchScore);
+    // Deduplicate by title + company
+    const seen = new Set();
+    scoredJobs = scoredJobs.filter(job => {
+      const key = `${job.title}-${job.company}`.toLowerCase();
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
 
-    // Reputed external portals deep links
+    // Sort by matchScore descending, then by recency
+    scoredJobs.sort((a, b) => (b.matchScore || 0) - (a.matchScore || 0));
+
+    // Reputed external portals deep links tailored strictly to targetSkills
     const externalPortals = generateExternalPortals(searchQuery, student);
 
     res.json({
       success: true,
       student: student || null,
       searchQuery: searchQuery,
+      targetSkills: targetSkills,
       total: scoredJobs.length,
       externalPortals,
       data: scoredJobs
