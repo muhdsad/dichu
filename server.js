@@ -44,7 +44,7 @@ const students = [
   {
     id: 4,
     name: 'Muhammad Sadik',
-    mobile: '+91 85472 46186',
+    mobile: '+91 85472 46183',
     location: 'Kerala, India (Seeking Dubai, UAE & Middle East)',
     skills: ['Supermarket Supervisor', 'Inventory Management', 'Store Operations', 'Customer Relations']
   },
