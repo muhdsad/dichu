@@ -371,6 +371,11 @@
       overscroll-behavior: contain;
     }
 
+    /* Essential: Ensure closed dialogs are strictly hidden even with custom ID specificity */
+    dialog:not([open]) {
+      display: none !important;
+    }
+
     dialog::backdrop {
       background: rgba(11, 17, 32, 0.85);
       backdrop-filter: blur(8px);
@@ -387,7 +392,6 @@
       margin-inline: 0;
       border-radius: 20px 20px 0 0;
       border-bottom: none;
-      display: flex;
       flex-direction: column;
       padding: 0;
       overflow: hidden;
@@ -1003,7 +1007,7 @@
         <h3 id="jobsModalTitle" style="font-size: 1.25rem; color: #38bdf8; margin-bottom: 0.2rem;">Job Vacancies</h3>
         <p id="jobsModalSubtitle" style="font-size: 0.85rem; color: #94a3b8;">Public listings with direct recruiter contact info</p>
       </div>
-      <button class="modal-close-btn" onclick="closeJobsModal()" title="Close">&times;</button>
+      <button type="button" class="modal-close-btn" id="jobsCloseBtn" onclick="closeJobsModal()" title="Close Window" aria-label="Close Window">&times;</button>
     </div>
 
     <div class="jobs-modal-body" id="jobsModalBody">
@@ -1130,12 +1134,31 @@
     const jobsModalBody = document.getElementById('jobsModalBody');
 
     function closeJobsModal() {
-      jobsDialog.close();
+      if (jobsDialog) {
+        if (typeof jobsDialog.close === 'function') {
+          jobsDialog.close();
+        }
+        jobsDialog.removeAttribute('open');
+      }
+    }
+
+    // Attach explicit listener to close button
+    const jobsCloseBtn = document.getElementById('jobsCloseBtn');
+    if (jobsCloseBtn) {
+      jobsCloseBtn.addEventListener('click', closeJobsModal);
     }
 
     jobsDialog.addEventListener('click', (e) => {
       if (e.target === jobsDialog) {
-        jobsDialog.close();
+        closeJobsModal();
+      }
+    });
+
+    // Close with Escape key
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeJobsModal();
+        closeEditModal();
       }
     });
 
@@ -1251,6 +1274,11 @@
       const jobsListHtml = `
         <div class="job-list" id="renderedJobsList">
           ${renderJobListItems(jobs, student)}
+        </div>
+        <div style="text-align: center; padding: 1.25rem 0 0.5rem;">
+          <button type="button" class="btn btn-secondary" onclick="closeJobsModal()" style="min-inline-size: 180px; min-block-size: 44px; font-weight: 700; border-radius: 10px; cursor: pointer;">
+            ✕ Close Window
+          </button>
         </div>
       `;
 
@@ -1413,7 +1441,12 @@ ${studentMobile}`
     }
 
     function closeEditModal() {
-      editDialog.close();
+      if (editDialog) {
+        if (typeof editDialog.close === 'function') {
+          editDialog.close();
+        }
+        editDialog.removeAttribute('open');
+      }
     }
 
     editDialog.addEventListener('click', (e) => {
