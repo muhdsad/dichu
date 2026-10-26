@@ -1,0 +1,1241 @@
+[
+  {
+    "id": 1,
+    "name": "Aarav Sharma",
+    "mobile": "+91 98765 43210",
+    "location": "Bengaluru, India (Open to Dubai & Abroad)",
+    "skills": [
+      "JavaScript",
+      "React",
+      "Node.js",
+      "MongoDB"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Rudaina",
+    "mobile": "+91 73062 07389",
+    "location": "Kerala, India (Seeking Dubai, UAE & Middle East)",
+    "skills": [
+      "Accountant",
+      "Tally",
+      "MS Applications",
+      "Bookkeeping"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Dilshad Muannad",
+    "mobile": "+91 70123 13570",
+    "location": "Calicut, Kerala (Seeking Dubai, UAE & Saudi Arabia)",
+    "skills": [
+      "iPhone Technician",
+      "Hardware Repair",
+      "iOS Diagnostics",
+      "Screen Replacement"
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Muhammad Sadik",
+    "mobile": "+91 85472 46183",
+    "location": "Kerala, India (Seeking Dubai, UAE & Middle East)",
+    "skills": [
+      "Supermarket Supervisor",
+      "Inventory Management",
+      "Store Operations",
+      "Customer Relations"
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Vikram Singh",
+    "mobile": "+91 98234 56789",
+    "location": "Delhi-NCR, India (Open to UAE & Worldwide Remote)",
+    "skills": [
+      "Go",
+      "Kubernetes",
+      "AWS",
+      "DevOps"
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Rohan Varma",
+    "mobile": "+91 94471 0000",
+    "location": "Calicut, Kerala (Seeking Dubai, UAE & Saudi Arabia)",
+    "skills": [
+      "iPhone Technician",
+      "Hardware Repair",
+      "iOS Diagnostics",
+      "Screen Replacement"
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Fatima Zahra",
+    "mobile": "+91 97451 0739",
+    "location": "Kochi, Kerala (Open to Gulf & Abroad)",
+    "skills": [
+      "Accountant",
+      "TallyPrime",
+      "MS Excel",
+      "GST Filing",
+      "Bookkeeping"
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Ananya Iyer",
+    "mobile": "+91 98461 1478",
+    "location": "Malappuram, Kerala (Seeking Qatar & UAE)",
+    "skills": [
+      "Supermarket Supervisor",
+      "Inventory Management",
+      "Store Operations",
+      "POS Billing"
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Mohammed Tariq",
+    "mobile": "+91 70121 2217",
+    "location": "Kannur, Kerala (Seeking Dubai & Abu Dhabi, UAE)",
+    "skills": [
+      "Hardware Repair",
+      "Micro-soldering",
+      "Logic Board Repair",
+      "iPhone Technician"
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Sneha Nair",
+    "mobile": "+91 85471 2956",
+    "location": "Thrissur, Kerala (Seeking Gulf / Abroad)",
+    "skills": [
+      "React",
+      "Node.js",
+      "JavaScript",
+      "MongoDB",
+      "Tailwind CSS"
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Rahul Menon",
+    "mobile": "+91 73061 3695",
+    "location": "Trivandrum, Kerala (Open to Abroad & Remote)",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Firebase",
+      "Mobile App Development",
+      "REST APIs"
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Zoya Khan",
+    "mobile": "+91 90371 4434",
+    "location": "Bengaluru, Karnataka (Open to Dubai & Worldwide Remote)",
+    "skills": [
+      "Python",
+      "FastAPI",
+      "SQL",
+      "Data Analysis",
+      "Pandas"
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Arjun Das",
+    "mobile": "+91 79071 5173",
+    "location": "Mumbai, Maharashtra (Open to Gulf & Abroad)",
+    "skills": [
+      "UI/UX Designer",
+      "Figma",
+      "Adobe XD",
+      "Wireframing",
+      "Design Systems"
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Hiba Mariyam",
+    "mobile": "+91 98951 5912",
+    "location": "Hyderabad, Telangana (Seeking Dubai & Saudi Arabia)",
+    "skills": [
+      "Electrician",
+      "HVAC Maintenance",
+      "Industrial Wiring",
+      "Facility Operations"
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Nihal Rahman",
+    "mobile": "+971 50 163 1171",
+    "location": "Chennai, Tamil Nadu (Open to Middle East)",
+    "skills": [
+      "Store Keeper",
+      "Warehouse Management",
+      "ERP Software",
+      "Inventory Audit"
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Pooja Hegde",
+    "mobile": "+971 55 170 1190",
+    "location": "Delhi-NCR (Open to UAE & Overseas)",
+    "skills": [
+      "Digital Marketing Specialist",
+      "SEO",
+      "Google Ads",
+      "Meta Ads",
+      "Content Strategy"
+    ]
+  },
+  {
+    "id": 17,
+    "name": "Salman Faris",
+    "mobile": "+966 50 177 1209",
+    "location": "Dubai, UAE (Locally Available & Ready to Join)",
+    "skills": [
+      "Sales Executive",
+      "B2B Business Development",
+      "Client Relations",
+      "Negotiation"
+    ]
+  },
+  {
+    "id": 18,
+    "name": "Priya Nambiar",
+    "mobile": "+974 33 184 1228",
+    "location": "Sharjah, UAE (Open to Dubai & Northern Emirates)",
+    "skills": [
+      "CCTV Technician",
+      "Security Systems",
+      "Networking",
+      "Access Control"
+    ]
+  },
+  {
+    "id": 19,
+    "name": "Karthik Raja",
+    "mobile": "+91 94471 9607",
+    "location": "Riyadh, Saudi Arabia (Transferable Iqama)",
+    "skills": [
+      "Graphic Designer",
+      "Photoshop",
+      "Illustrator",
+      "Premiere Pro",
+      "Branding"
+    ]
+  },
+  {
+    "id": 20,
+    "name": "Ayesha Siddiqua",
+    "mobile": "+91 97452 0346",
+    "location": "Doha, Qatar (Open to GCC Relocation)",
+    "skills": [
+      "HR Executive",
+      "Talent Acquisition",
+      "Payroll Management",
+      "Onboarding"
+    ]
+  },
+  {
+    "id": 21,
+    "name": "Vishnu Prasad",
+    "mobile": "+91 98462 1085",
+    "location": "Muscat, Oman (Seeking GCC Opportunities)",
+    "skills": [
+      "Executive Secretary",
+      "Document Controller",
+      "Office Administration",
+      "MS Office"
+    ]
+  },
+  {
+    "id": 22,
+    "name": "Maryam Noor",
+    "mobile": "+91 70122 1824",
+    "location": "Kottayam, Kerala (Seeking UAE & Middle East)",
+    "skills": [
+      "Barista",
+      "Specialty Coffee Brewing",
+      "Latte Art",
+      "Customer Service"
+    ]
+  },
+  {
+    "id": 23,
+    "name": "Devansh Kapoor",
+    "mobile": "+91 85472 2563",
+    "location": "Palakkad, Kerala (Open to Dubai & Saudi Arabia)",
+    "skills": [
+      "Network Administrator",
+      "Cisco CCNA",
+      "Routing & Switching",
+      "Firewalls"
+    ]
+  },
+  {
+    "id": 24,
+    "name": "Farsana K",
+    "mobile": "+91 73062 3302",
+    "location": "Kollam, Kerala (Seeking Gulf / Abroad)",
+    "skills": [
+      "Cybersecurity Analyst",
+      "SOC Monitoring",
+      "Vulnerability Assessment",
+      "SIEM"
+    ]
+  },
+  {
+    "id": 25,
+    "name": "Bilal Ahmed",
+    "mobile": "+91 90372 4041",
+    "location": "Wayand, Kerala (Open to Middle East)",
+    "skills": [
+      "Go",
+      "Docker",
+      "Kubernetes",
+      "AWS",
+      "CI/CD Pipelines"
+    ]
+  },
+  {
+    "id": 26,
+    "name": "Divya Suresh",
+    "mobile": "+91 79072 4780",
+    "location": "Calicut, Kerala (Seeking Dubai, UAE & Saudi Arabia)",
+    "skills": [
+      "iPhone Technician",
+      "Hardware Repair",
+      "iOS Diagnostics",
+      "Screen Replacement"
+    ]
+  },
+  {
+    "id": 27,
+    "name": "Haris Babu",
+    "mobile": "+91 98952 5519",
+    "location": "Kochi, Kerala (Open to Gulf & Abroad)",
+    "skills": [
+      "Accountant",
+      "TallyPrime",
+      "MS Excel",
+      "GST Filing",
+      "Bookkeeping"
+    ]
+  },
+  {
+    "id": 28,
+    "name": "Neha Pillai",
+    "mobile": "+971 50 254 1418",
+    "location": "Malappuram, Kerala (Seeking Qatar & UAE)",
+    "skills": [
+      "Supermarket Supervisor",
+      "Inventory Management",
+      "Store Operations",
+      "POS Billing"
+    ]
+  },
+  {
+    "id": 29,
+    "name": "Omar Farooq",
+    "mobile": "+971 55 261 1437",
+    "location": "Kannur, Kerala (Seeking Dubai & Abu Dhabi, UAE)",
+    "skills": [
+      "Hardware Repair",
+      "Micro-soldering",
+      "Logic Board Repair",
+      "iPhone Technician"
+    ]
+  },
+  {
+    "id": 30,
+    "name": "Sanjay Krishnan",
+    "mobile": "+966 50 268 1456",
+    "location": "Thrissur, Kerala (Seeking Gulf / Abroad)",
+    "skills": [
+      "React",
+      "Node.js",
+      "JavaScript",
+      "MongoDB",
+      "Tailwind CSS"
+    ]
+  },
+  {
+    "id": 31,
+    "name": "Shifa Parveen",
+    "mobile": "+974 33 275 1475",
+    "location": "Trivandrum, Kerala (Open to Abroad & Remote)",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Firebase",
+      "Mobile App Development",
+      "REST APIs"
+    ]
+  },
+  {
+    "id": 32,
+    "name": "Gokul Raj",
+    "mobile": "+91 94472 9214",
+    "location": "Bengaluru, Karnataka (Open to Dubai & Worldwide Remote)",
+    "skills": [
+      "Python",
+      "FastAPI",
+      "SQL",
+      "Data Analysis",
+      "Pandas"
+    ]
+  },
+  {
+    "id": 33,
+    "name": "Zainab Ali",
+    "mobile": "+91 97452 9953",
+    "location": "Mumbai, Maharashtra (Open to Gulf & Abroad)",
+    "skills": [
+      "UI/UX Designer",
+      "Figma",
+      "Adobe XD",
+      "Wireframing",
+      "Design Systems"
+    ]
+  },
+  {
+    "id": 34,
+    "name": "Aditi Joshi",
+    "mobile": "+91 98463 0692",
+    "location": "Hyderabad, Telangana (Seeking Dubai & Saudi Arabia)",
+    "skills": [
+      "Electrician",
+      "HVAC Maintenance",
+      "Industrial Wiring",
+      "Facility Operations"
+    ]
+  },
+  {
+    "id": 35,
+    "name": "Rashid Khan",
+    "mobile": "+91 70123 1431",
+    "location": "Chennai, Tamil Nadu (Open to Middle East)",
+    "skills": [
+      "Store Keeper",
+      "Warehouse Management",
+      "ERP Software",
+      "Inventory Audit"
+    ]
+  },
+  {
+    "id": 36,
+    "name": "Akhil George",
+    "mobile": "+91 85473 2170",
+    "location": "Delhi-NCR (Open to UAE & Overseas)",
+    "skills": [
+      "Digital Marketing Specialist",
+      "SEO",
+      "Google Ads",
+      "Meta Ads",
+      "Content Strategy"
+    ]
+  },
+  {
+    "id": 37,
+    "name": "Amina Beevi",
+    "mobile": "+91 73063 2909",
+    "location": "Dubai, UAE (Locally Available & Ready to Join)",
+    "skills": [
+      "Sales Executive",
+      "B2B Business Development",
+      "Client Relations",
+      "Negotiation"
+    ]
+  },
+  {
+    "id": 38,
+    "name": "Siddharth Rao",
+    "mobile": "+91 90373 3648",
+    "location": "Sharjah, UAE (Open to Dubai & Northern Emirates)",
+    "skills": [
+      "CCTV Technician",
+      "Security Systems",
+      "Networking",
+      "Access Control"
+    ]
+  },
+  {
+    "id": 39,
+    "name": "Jamsheer Ali",
+    "mobile": "+91 79073 4387",
+    "location": "Riyadh, Saudi Arabia (Transferable Iqama)",
+    "skills": [
+      "Graphic Designer",
+      "Photoshop",
+      "Illustrator",
+      "Premiere Pro",
+      "Branding"
+    ]
+  },
+  {
+    "id": 40,
+    "name": "Anjali Panicker",
+    "mobile": "+91 98953 5126",
+    "location": "Doha, Qatar (Open to GCC Relocation)",
+    "skills": [
+      "HR Executive",
+      "Talent Acquisition",
+      "Payroll Management",
+      "Onboarding"
+    ]
+  },
+  {
+    "id": 41,
+    "name": "Yaseen Malik",
+    "mobile": "+971 50 345 1665",
+    "location": "Muscat, Oman (Seeking GCC Opportunities)",
+    "skills": [
+      "Executive Secretary",
+      "Document Controller",
+      "Office Administration",
+      "MS Office"
+    ]
+  },
+  {
+    "id": 42,
+    "name": "Meera Namboodiri",
+    "mobile": "+971 55 352 1684",
+    "location": "Kottayam, Kerala (Seeking UAE & Middle East)",
+    "skills": [
+      "Barista",
+      "Specialty Coffee Brewing",
+      "Latte Art",
+      "Customer Service"
+    ]
+  },
+  {
+    "id": 43,
+    "name": "Fayis Mohammed",
+    "mobile": "+966 50 359 1703",
+    "location": "Palakkad, Kerala (Open to Dubai & Saudi Arabia)",
+    "skills": [
+      "Network Administrator",
+      "Cisco CCNA",
+      "Routing & Switching",
+      "Firewalls"
+    ]
+  },
+  {
+    "id": 44,
+    "name": "Ritu Sen",
+    "mobile": "+974 33 366 1722",
+    "location": "Kollam, Kerala (Seeking Gulf / Abroad)",
+    "skills": [
+      "Cybersecurity Analyst",
+      "SOC Monitoring",
+      "Vulnerability Assessment",
+      "SIEM"
+    ]
+  },
+  {
+    "id": 45,
+    "name": "Hamza Tariq",
+    "mobile": "+91 94473 8821",
+    "location": "Wayand, Kerala (Open to Middle East)",
+    "skills": [
+      "Go",
+      "Docker",
+      "Kubernetes",
+      "AWS",
+      "CI/CD Pipelines"
+    ]
+  },
+  {
+    "id": 46,
+    "name": "Ashwin Kumar",
+    "mobile": "+91 97453 9560",
+    "location": "Calicut, Kerala (Seeking Dubai, UAE & Saudi Arabia)",
+    "skills": [
+      "iPhone Technician",
+      "Hardware Repair",
+      "iOS Diagnostics",
+      "Screen Replacement"
+    ]
+  },
+  {
+    "id": 47,
+    "name": "Sarah Mathew",
+    "mobile": "+91 98464 0299",
+    "location": "Kochi, Kerala (Open to Gulf & Abroad)",
+    "skills": [
+      "Accountant",
+      "TallyPrime",
+      "MS Excel",
+      "GST Filing",
+      "Bookkeeping"
+    ]
+  },
+  {
+    "id": 48,
+    "name": "Musthafa K",
+    "mobile": "+91 70124 1038",
+    "location": "Malappuram, Kerala (Seeking Qatar & UAE)",
+    "skills": [
+      "Supermarket Supervisor",
+      "Inventory Management",
+      "Store Operations",
+      "POS Billing"
+    ]
+  },
+  {
+    "id": 49,
+    "name": "Kavya Nair",
+    "mobile": "+91 85474 1777",
+    "location": "Kannur, Kerala (Seeking Dubai & Abu Dhabi, UAE)",
+    "skills": [
+      "Hardware Repair",
+      "Micro-soldering",
+      "Logic Board Repair",
+      "iPhone Technician"
+    ]
+  },
+  {
+    "id": 50,
+    "name": "Sameer Hussain",
+    "mobile": "+91 73064 2516",
+    "location": "Thrissur, Kerala (Seeking Gulf / Abroad)",
+    "skills": [
+      "React",
+      "Node.js",
+      "JavaScript",
+      "MongoDB",
+      "Tailwind CSS"
+    ]
+  },
+  {
+    "id": 51,
+    "name": "Deepak Patel",
+    "mobile": "+91 90374 3255",
+    "location": "Trivandrum, Kerala (Open to Abroad & Remote)",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Firebase",
+      "Mobile App Development",
+      "REST APIs"
+    ]
+  },
+  {
+    "id": 52,
+    "name": "Lubna Sharaf",
+    "mobile": "+91 79074 3994",
+    "location": "Bengaluru, Karnataka (Open to Dubai & Worldwide Remote)",
+    "skills": [
+      "Python",
+      "FastAPI",
+      "SQL",
+      "Data Analysis",
+      "Pandas"
+    ]
+  },
+  {
+    "id": 53,
+    "name": "Abhiram V",
+    "mobile": "+91 98954 4733",
+    "location": "Mumbai, Maharashtra (Open to Gulf & Abroad)",
+    "skills": [
+      "UI/UX Designer",
+      "Figma",
+      "Adobe XD",
+      "Wireframing",
+      "Design Systems"
+    ]
+  },
+  {
+    "id": 54,
+    "name": "Shahana Sherin",
+    "mobile": "+971 50 436 1912",
+    "location": "Hyderabad, Telangana (Seeking Dubai & Saudi Arabia)",
+    "skills": [
+      "Electrician",
+      "HVAC Maintenance",
+      "Industrial Wiring",
+      "Facility Operations"
+    ]
+  },
+  {
+    "id": 55,
+    "name": "Pranav Nair",
+    "mobile": "+971 55 443 1931",
+    "location": "Chennai, Tamil Nadu (Open to Middle East)",
+    "skills": [
+      "Store Keeper",
+      "Warehouse Management",
+      "ERP Software",
+      "Inventory Audit"
+    ]
+  },
+  {
+    "id": 56,
+    "name": "Nadeem Akhtar",
+    "mobile": "+966 50 450 1950",
+    "location": "Delhi-NCR (Open to UAE & Overseas)",
+    "skills": [
+      "Digital Marketing Specialist",
+      "SEO",
+      "Google Ads",
+      "Meta Ads",
+      "Content Strategy"
+    ]
+  },
+  {
+    "id": 57,
+    "name": "Bhavya Lakshmi",
+    "mobile": "+974 33 457 1969",
+    "location": "Dubai, UAE (Locally Available & Ready to Join)",
+    "skills": [
+      "Sales Executive",
+      "B2B Business Development",
+      "Client Relations",
+      "Negotiation"
+    ]
+  },
+  {
+    "id": 58,
+    "name": "Shabeer Ali",
+    "mobile": "+91 94474 8428",
+    "location": "Sharjah, UAE (Open to Dubai & Northern Emirates)",
+    "skills": [
+      "CCTV Technician",
+      "Security Systems",
+      "Networking",
+      "Access Control"
+    ]
+  },
+  {
+    "id": 59,
+    "name": "Swathi Krishna",
+    "mobile": "+91 97454 9167",
+    "location": "Riyadh, Saudi Arabia (Transferable Iqama)",
+    "skills": [
+      "Graphic Designer",
+      "Photoshop",
+      "Illustrator",
+      "Premiere Pro",
+      "Branding"
+    ]
+  },
+  {
+    "id": 60,
+    "name": "Ibrahim Khalil",
+    "mobile": "+91 98464 9906",
+    "location": "Doha, Qatar (Open to GCC Relocation)",
+    "skills": [
+      "HR Executive",
+      "Talent Acquisition",
+      "Payroll Management",
+      "Onboarding"
+    ]
+  },
+  {
+    "id": 61,
+    "name": "Midhun Mohan",
+    "mobile": "+91 70125 0645",
+    "location": "Muscat, Oman (Seeking GCC Opportunities)",
+    "skills": [
+      "Executive Secretary",
+      "Document Controller",
+      "Office Administration",
+      "MS Office"
+    ]
+  },
+  {
+    "id": 62,
+    "name": "Bushra Fathima",
+    "mobile": "+91 85475 1384",
+    "location": "Kottayam, Kerala (Seeking UAE & Middle East)",
+    "skills": [
+      "Barista",
+      "Specialty Coffee Brewing",
+      "Latte Art",
+      "Customer Service"
+    ]
+  },
+  {
+    "id": 63,
+    "name": "Kiran Joy",
+    "mobile": "+91 73065 2123",
+    "location": "Palakkad, Kerala (Open to Dubai & Saudi Arabia)",
+    "skills": [
+      "Network Administrator",
+      "Cisco CCNA",
+      "Routing & Switching",
+      "Firewalls"
+    ]
+  },
+  {
+    "id": 64,
+    "name": "Afsal VP",
+    "mobile": "+91 90375 2862",
+    "location": "Kollam, Kerala (Seeking Gulf / Abroad)",
+    "skills": [
+      "Cybersecurity Analyst",
+      "SOC Monitoring",
+      "Vulnerability Assessment",
+      "SIEM"
+    ]
+  },
+  {
+    "id": 65,
+    "name": "Keerthi Suresh",
+    "mobile": "+91 79075 3601",
+    "location": "Wayand, Kerala (Open to Middle East)",
+    "skills": [
+      "Go",
+      "Docker",
+      "Kubernetes",
+      "AWS",
+      "CI/CD Pipelines"
+    ]
+  },
+  {
+    "id": 66,
+    "name": "Rizwan Ullah",
+    "mobile": "+91 98955 4340",
+    "location": "Calicut, Kerala (Seeking Dubai, UAE & Saudi Arabia)",
+    "skills": [
+      "iPhone Technician",
+      "Hardware Repair",
+      "iOS Diagnostics",
+      "Screen Replacement"
+    ]
+  },
+  {
+    "id": 67,
+    "name": "Anoop Thomas",
+    "mobile": "+971 50 527 2159",
+    "location": "Kochi, Kerala (Open to Gulf & Abroad)",
+    "skills": [
+      "Accountant",
+      "TallyPrime",
+      "MS Excel",
+      "GST Filing",
+      "Bookkeeping"
+    ]
+  },
+  {
+    "id": 68,
+    "name": "Jumana Sherin",
+    "mobile": "+971 55 534 2178",
+    "location": "Malappuram, Kerala (Seeking Qatar & UAE)",
+    "skills": [
+      "Supermarket Supervisor",
+      "Inventory Management",
+      "Store Operations",
+      "POS Billing"
+    ]
+  },
+  {
+    "id": 69,
+    "name": "Vignesh Shivan",
+    "mobile": "+966 50 541 2197",
+    "location": "Kannur, Kerala (Seeking Dubai & Abu Dhabi, UAE)",
+    "skills": [
+      "Hardware Repair",
+      "Micro-soldering",
+      "Logic Board Repair",
+      "iPhone Technician"
+    ]
+  },
+  {
+    "id": 70,
+    "name": "Asma Begum",
+    "mobile": "+974 33 548 2216",
+    "location": "Thrissur, Kerala (Seeking Gulf / Abroad)",
+    "skills": [
+      "React",
+      "Node.js",
+      "JavaScript",
+      "MongoDB",
+      "Tailwind CSS"
+    ]
+  },
+  {
+    "id": 71,
+    "name": "Shyam Sundar",
+    "mobile": "+91 94475 8035",
+    "location": "Trivandrum, Kerala (Open to Abroad & Remote)",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Firebase",
+      "Mobile App Development",
+      "REST APIs"
+    ]
+  },
+  {
+    "id": 72,
+    "name": "Rameez Raja",
+    "mobile": "+91 97455 8774",
+    "location": "Bengaluru, Karnataka (Open to Dubai & Worldwide Remote)",
+    "skills": [
+      "Python",
+      "FastAPI",
+      "SQL",
+      "Data Analysis",
+      "Pandas"
+    ]
+  },
+  {
+    "id": 73,
+    "name": "Nikhila Vimal",
+    "mobile": "+91 98465 9513",
+    "location": "Mumbai, Maharashtra (Open to Gulf & Abroad)",
+    "skills": [
+      "UI/UX Designer",
+      "Figma",
+      "Adobe XD",
+      "Wireframing",
+      "Design Systems"
+    ]
+  },
+  {
+    "id": 74,
+    "name": "Zubair Hashim",
+    "mobile": "+91 70126 0252",
+    "location": "Hyderabad, Telangana (Seeking Dubai & Saudi Arabia)",
+    "skills": [
+      "Electrician",
+      "HVAC Maintenance",
+      "Industrial Wiring",
+      "Facility Operations"
+    ]
+  },
+  {
+    "id": 75,
+    "name": "Arya Chandran",
+    "mobile": "+91 85476 0991",
+    "location": "Chennai, Tamil Nadu (Open to Middle East)",
+    "skills": [
+      "Store Keeper",
+      "Warehouse Management",
+      "ERP Software",
+      "Inventory Audit"
+    ]
+  },
+  {
+    "id": 76,
+    "name": "Ameen Sharaf",
+    "mobile": "+91 73066 1730",
+    "location": "Delhi-NCR (Open to UAE & Overseas)",
+    "skills": [
+      "Digital Marketing Specialist",
+      "SEO",
+      "Google Ads",
+      "Meta Ads",
+      "Content Strategy"
+    ]
+  },
+  {
+    "id": 77,
+    "name": "Reshma Raghu",
+    "mobile": "+91 90376 2469",
+    "location": "Dubai, UAE (Locally Available & Ready to Join)",
+    "skills": [
+      "Sales Executive",
+      "B2B Business Development",
+      "Client Relations",
+      "Negotiation"
+    ]
+  },
+  {
+    "id": 78,
+    "name": "Mansoor Ali",
+    "mobile": "+91 79076 3208",
+    "location": "Sharjah, UAE (Open to Dubai & Northern Emirates)",
+    "skills": [
+      "CCTV Technician",
+      "Security Systems",
+      "Networking",
+      "Access Control"
+    ]
+  },
+  {
+    "id": 79,
+    "name": "Archana Mohan",
+    "mobile": "+91 98956 3947",
+    "location": "Riyadh, Saudi Arabia (Transferable Iqama)",
+    "skills": [
+      "Graphic Designer",
+      "Photoshop",
+      "Illustrator",
+      "Premiere Pro",
+      "Branding"
+    ]
+  },
+  {
+    "id": 80,
+    "name": "Tariq Jameel",
+    "mobile": "+971 50 618 2406",
+    "location": "Doha, Qatar (Open to GCC Relocation)",
+    "skills": [
+      "HR Executive",
+      "Talent Acquisition",
+      "Payroll Management",
+      "Onboarding"
+    ]
+  },
+  {
+    "id": 81,
+    "name": "Harikrishnan P",
+    "mobile": "+971 55 625 2425",
+    "location": "Muscat, Oman (Seeking GCC Opportunities)",
+    "skills": [
+      "Executive Secretary",
+      "Document Controller",
+      "Office Administration",
+      "MS Office"
+    ]
+  },
+  {
+    "id": 82,
+    "name": "Sumiya Banu",
+    "mobile": "+966 50 632 2444",
+    "location": "Kottayam, Kerala (Seeking UAE & Middle East)",
+    "skills": [
+      "Barista",
+      "Specialty Coffee Brewing",
+      "Latte Art",
+      "Customer Service"
+    ]
+  },
+  {
+    "id": 83,
+    "name": "Shabin K",
+    "mobile": "+974 33 639 2463",
+    "location": "Palakkad, Kerala (Open to Dubai & Saudi Arabia)",
+    "skills": [
+      "Network Administrator",
+      "Cisco CCNA",
+      "Routing & Switching",
+      "Firewalls"
+    ]
+  },
+  {
+    "id": 84,
+    "name": "Gopika Ramesh",
+    "mobile": "+91 94476 7642",
+    "location": "Kollam, Kerala (Seeking Gulf / Abroad)",
+    "skills": [
+      "Cybersecurity Analyst",
+      "SOC Monitoring",
+      "Vulnerability Assessment",
+      "SIEM"
+    ]
+  },
+  {
+    "id": 85,
+    "name": "Fahad Fazil",
+    "mobile": "+91 97456 8381",
+    "location": "Wayand, Kerala (Open to Middle East)",
+    "skills": [
+      "Go",
+      "Docker",
+      "Kubernetes",
+      "AWS",
+      "CI/CD Pipelines"
+    ]
+  },
+  {
+    "id": 86,
+    "name": "Nimisha Sajayan",
+    "mobile": "+91 98466 9120",
+    "location": "Calicut, Kerala (Seeking Dubai, UAE & Saudi Arabia)",
+    "skills": [
+      "iPhone Technician",
+      "Hardware Repair",
+      "iOS Diagnostics",
+      "Screen Replacement"
+    ]
+  },
+  {
+    "id": 87,
+    "name": "Rauf PK",
+    "mobile": "+91 70126 9859",
+    "location": "Kochi, Kerala (Open to Gulf & Abroad)",
+    "skills": [
+      "Accountant",
+      "TallyPrime",
+      "MS Excel",
+      "GST Filing",
+      "Bookkeeping"
+    ]
+  },
+  {
+    "id": 88,
+    "name": "Malavika Mohanan",
+    "mobile": "+91 85477 0598",
+    "location": "Malappuram, Kerala (Seeking Qatar & UAE)",
+    "skills": [
+      "Supermarket Supervisor",
+      "Inventory Management",
+      "Store Operations",
+      "POS Billing"
+    ]
+  },
+  {
+    "id": 89,
+    "name": "Shaheen Shah",
+    "mobile": "+91 73067 1337",
+    "location": "Kannur, Kerala (Seeking Dubai & Abu Dhabi, UAE)",
+    "skills": [
+      "Hardware Repair",
+      "Micro-soldering",
+      "Logic Board Repair",
+      "iPhone Technician"
+    ]
+  },
+  {
+    "id": 90,
+    "name": "Devika Nambiar",
+    "mobile": "+91 90377 2076",
+    "location": "Thrissur, Kerala (Seeking Gulf / Abroad)",
+    "skills": [
+      "React",
+      "Node.js",
+      "JavaScript",
+      "MongoDB",
+      "Tailwind CSS"
+    ]
+  },
+  {
+    "id": 91,
+    "name": "Zuhail Ahmed",
+    "mobile": "+91 79077 2815",
+    "location": "Trivandrum, Kerala (Open to Abroad & Remote)",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Firebase",
+      "Mobile App Development",
+      "REST APIs"
+    ]
+  },
+  {
+    "id": 92,
+    "name": "Athira Unni",
+    "mobile": "+91 98957 3554",
+    "location": "Bengaluru, Karnataka (Open to Dubai & Worldwide Remote)",
+    "skills": [
+      "Python",
+      "FastAPI",
+      "SQL",
+      "Data Analysis",
+      "Pandas"
+    ]
+  },
+  {
+    "id": 93,
+    "name": "Anas Cheruvath",
+    "mobile": "+971 50 709 2653",
+    "location": "Mumbai, Maharashtra (Open to Gulf & Abroad)",
+    "skills": [
+      "UI/UX Designer",
+      "Figma",
+      "Adobe XD",
+      "Wireframing",
+      "Design Systems"
+    ]
+  },
+  {
+    "id": 94,
+    "name": "Varsha Vijayan",
+    "mobile": "+971 55 716 2672",
+    "location": "Hyderabad, Telangana (Seeking Dubai & Saudi Arabia)",
+    "skills": [
+      "Electrician",
+      "HVAC Maintenance",
+      "Industrial Wiring",
+      "Facility Operations"
+    ]
+  },
+  {
+    "id": 95,
+    "name": "Ashik Usman",
+    "mobile": "+966 50 723 2691",
+    "location": "Chennai, Tamil Nadu (Open to Middle East)",
+    "skills": [
+      "Store Keeper",
+      "Warehouse Management",
+      "ERP Software",
+      "Inventory Audit"
+    ]
+  },
+  {
+    "id": 96,
+    "name": "Shruti Haasan",
+    "mobile": "+974 33 730 2710",
+    "location": "Delhi-NCR (Open to UAE & Overseas)",
+    "skills": [
+      "Digital Marketing Specialist",
+      "SEO",
+      "Google Ads",
+      "Meta Ads",
+      "Content Strategy"
+    ]
+  },
+  {
+    "id": 97,
+    "name": "Nawaf Al-Harbi",
+    "mobile": "+91 94477 7249",
+    "location": "Dubai, UAE (Locally Available & Ready to Join)",
+    "skills": [
+      "Sales Executive",
+      "B2B Business Development",
+      "Client Relations",
+      "Negotiation"
+    ]
+  },
+  {
+    "id": 98,
+    "name": "Praveen Kumar",
+    "mobile": "+91 97457 7988",
+    "location": "Sharjah, UAE (Open to Dubai & Northern Emirates)",
+    "skills": [
+      "CCTV Technician",
+      "Security Systems",
+      "Networking",
+      "Access Control"
+    ]
+  },
+  {
+    "id": 99,
+    "name": "Fathimath Suhara",
+    "mobile": "+91 98467 8727",
+    "location": "Riyadh, Saudi Arabia (Transferable Iqama)",
+    "skills": [
+      "Graphic Designer",
+      "Photoshop",
+      "Illustrator",
+      "Premiere Pro",
+      "Branding"
+    ]
+  },
+  {
+    "id": 100,
+    "name": "Rohit Verma",
+    "mobile": "+91 70127 9466",
+    "location": "Doha, Qatar (Open to GCC Relocation)",
+    "skills": [
+      "HR Executive",
+      "Talent Acquisition",
+      "Payroll Management",
+      "Onboarding"
+    ]
+  }
+]

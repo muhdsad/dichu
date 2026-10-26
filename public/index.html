@@ -359,6 +359,63 @@
       border-color: var(--primary);
     }
 
+    .btn-add-student {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      min-block-size: 38px;
+      background: linear-gradient(135deg, #059669, #10b981);
+      color: #ffffff;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      padding: 0.45rem 0.95rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: all 0.2s;
+    }
+
+    .btn-add-student:hover {
+      background: linear-gradient(135deg, #047857, #059669);
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .students-stats-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-block-end: 1.1rem;
+      padding: 0.6rem 0.85rem;
+      background: var(--card-inner);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+    }
+
+    .count-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: #38bdf8;
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    .students-hint-text {
+      color: #94a3b8;
+      font-size: 0.83rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
     /* Cards Grid */
     .grid {
       display: grid;
@@ -1295,14 +1352,30 @@
         <button class="btn-browse-all-main" onclick="openAllJobsModal()">
           <span>💼 Browse All Vacancies (Middle East & India)</span>
         </button>
-        <div class="api-links-group">
-          <a href="/api/students" target="_blank" class="api-badge-btn" title="Open Students JSON API">
-            <span>⚡ Students API</span>
-          </a>
-          <a href="/api/jobs" target="_blank" class="api-badge-btn" title="Open Jobs JSON API">
-            <span>💼 Jobs API</span>
-          </a>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <button type="button" class="btn-add-student" onclick="openAddModal()" title="Add New Student Profile">
+            <span>➕ Add Student</span>
+          </button>
+          <div class="api-links-group">
+            <a href="/api/students" target="_blank" class="api-badge-btn" title="Open Students JSON API">
+              <span>⚡ Students API</span>
+            </a>
+            <a href="/api/jobs" target="_blank" class="api-badge-btn" title="Open Jobs JSON API">
+              <span>💼 Jobs API</span>
+            </a>
+          </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Students Status / Summary Bar -->
+    <div class="students-stats-header">
+      <div class="count-pill">
+        <span>👥</span>
+        <span id="studentsCountLabel">Showing 100 of 100 Students</span>
+      </div>
+      <div class="students-hint-text">
+        <span>✏️ Click <strong>Edit</strong> on any student to modify Name, Mobile, Location, or Skills</span>
       </div>
     </div>
 
@@ -1357,9 +1430,12 @@
         <small style="color: #64748b; font-size: 0.75rem;">Separate multiple skills with a comma ( , )</small>
       </div>
 
-      <div class="modal-actions">
-        <button type="button" class="btn btn-secondary" onclick="closeEditModal()">Cancel</button>
-        <button type="submit" class="btn btn-primary">Save Changes</button>
+      <div class="modal-actions" style="display: flex; justify-content: space-between; align-items: center; gap: 0.5rem;">
+        <button type="button" class="btn btn-secondary" id="btnDeleteStudent" onclick="deleteCurrentStudent()" style="display: none; background: rgba(239, 68, 68, 0.2); border: 1px solid #ef4444; color: #f87171;">🗑️ Delete</button>
+        <div style="display: flex; gap: 0.5rem; margin-inline-start: auto;">
+          <button type="button" class="btn btn-secondary" onclick="closeEditModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="btnSaveStudent">Save Changes</button>
+        </div>
       </div>
     </form>
   </dialog>
@@ -1407,6 +1483,10 @@
 
     function renderStudents(students) {
       const grid = document.getElementById('studentsGrid');
+      const countLabel = document.getElementById('studentsCountLabel');
+      if (countLabel) {
+        countLabel.textContent = `Showing ${students ? students.length : 0} of ${allStudents.length} Students`;
+      }
 
       if (!students || students.length === 0) {
         grid.innerHTML = '<div class="empty-state">No students found matching your search. Try resetting the city or keyword filter!</div>';
@@ -1940,6 +2020,20 @@ ${studentMobile}`
     const editMobile = document.getElementById('editMobile');
     const editLocation = document.getElementById('editLocation');
     const editSkills = document.getElementById('editSkills');
+    const btnSaveStudent = document.getElementById('btnSaveStudent');
+    const btnDeleteStudent = document.getElementById('btnDeleteStudent');
+
+    function openAddModal() {
+      editId.value = '';
+      editName.value = '';
+      editMobile.value = '';
+      editLocation.value = '';
+      editSkills.value = '';
+      document.getElementById('editDialogTitle').textContent = '➕ Add New Student';
+      if (btnSaveStudent) btnSaveStudent.textContent = 'Create Student';
+      if (btnDeleteStudent) btnDeleteStudent.style.display = 'none';
+      editDialog.showModal();
+    }
 
     function openEditModal(id) {
       const student = allStudents.find(s => s.id === id);
@@ -1949,9 +2043,34 @@ ${studentMobile}`
       editName.value = student.name;
       editMobile.value = student.mobile;
       editLocation.value = student.location || '';
-      editSkills.value = student.skills.join(', ');
+      editSkills.value = (student.skills || []).join(', ');
       document.getElementById('editDialogTitle').textContent = `Edit #${student.id}: ${student.name.split(' ')[0]}`;
+      if (btnSaveStudent) btnSaveStudent.textContent = 'Save Changes';
+      if (btnDeleteStudent) btnDeleteStudent.style.display = 'inline-flex';
       editDialog.showModal();
+    }
+
+    async function deleteCurrentStudent() {
+      const id = editId.value;
+      if (!id) return;
+      const student = allStudents.find(s => s.id === parseInt(id, 10));
+      const studentName = student ? student.name : `#${id}`;
+      if (!confirm(`Are you sure you want to remove student: ${studentName}?`)) {
+        return;
+      }
+      try {
+        const res = await fetch(`/api/students/${id}`, { method: 'DELETE' });
+        const result = await res.json();
+        if (result.success) {
+          allStudents = allStudents.filter(s => s.id !== parseInt(id, 10));
+          filterStudentsList();
+          closeEditModal();
+        } else {
+          alert('Delete failed: ' + result.message);
+        }
+      } catch (err) {
+        alert('Error deleting student: ' + err.message);
+      }
     }
 
     function closeEditModal() {
@@ -1973,31 +2092,44 @@ ${studentMobile}`
       e.preventDefault();
       const id = editId.value;
       const updatedPayload = {
-        name: editName.value,
-        mobile: editMobile.value,
-        location: editLocation.value,
+        name: editName.value.trim(),
+        mobile: editMobile.value.trim(),
+        location: editLocation.value.trim(),
         skills: editSkills.value.split(',').map(s => s.trim()).filter(Boolean)
       };
 
       try {
-        const res = await fetch(`/api/students/${id}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(updatedPayload)
-        });
+        let res;
+        if (id) {
+          res = await fetch(`/api/students/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updatedPayload)
+          });
+        } else {
+          res = await fetch('/api/students', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updatedPayload)
+          });
+        }
         const result = await res.json();
         if (result.success) {
-          const idx = allStudents.findIndex(s => s.id === parseInt(id, 10));
-          if (idx !== -1) {
-            allStudents[idx] = result.data;
+          if (id) {
+            const idx = allStudents.findIndex(s => s.id === parseInt(id, 10));
+            if (idx !== -1) {
+              allStudents[idx] = result.data;
+            }
+          } else {
+            allStudents.push(result.data);
           }
           filterStudentsList();
-          editDialog.close();
+          closeEditModal();
         } else {
-          alert('Update failed: ' + result.message);
+          alert('Save failed: ' + result.message);
         }
       } catch (err) {
-        alert('Error updating student: ' + err.message);
+        alert('Error saving student: ' + err.message);
       }
     });
 

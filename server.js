@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const fs = require('fs');
 const {
   publicVacancies,
   calculateJobMatch,
@@ -18,44 +19,36 @@ app.use(express.json());
 // Serve static frontend files from 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Student placement directory with preferred locations (India & Abroad/Middle East)
-const students = [
-  {
-    id: 1,
-    name: 'Aarav Sharma',
-    mobile: '+91 98765 43210',
-    location: 'Bengaluru, India (Open to Dubai & Abroad)',
-    skills: ['JavaScript', 'React', 'Node.js', 'MongoDB']
-  },
-  {
-    id: 2,
-    name: 'Rudaina',
-    mobile: '+91 73062 07389',
-    location: 'Kerala, India (Seeking Dubai, UAE & Middle East)',
-    skills: ['Accountant', 'Tally', 'MS Applications', 'Bookkeeping']
-  },
-  {
-    id: 3,
-    name: 'Dilshad Muannad',
-    mobile: '+91 70123 13570',
-    location: 'Calicut, Kerala (Seeking Dubai, UAE & Saudi Arabia)',
-    skills: ['iPhone Technician', 'Hardware Repair', 'iOS Diagnostics', 'Screen Replacement']
-  },
-  {
-    id: 4,
-    name: 'Muhammad Sadik',
-    mobile: '+91 85472 46183',
-    location: 'Kerala, India (Seeking Dubai, UAE & Middle East)',
-    skills: ['Supermarket Supervisor', 'Inventory Management', 'Store Operations', 'Customer Relations']
-  },
-  {
-    id: 5,
-    name: 'Vikram Singh',
-    mobile: '+91 98234 56789',
-    location: 'Delhi-NCR, India (Open to UAE & Worldwide Remote)',
-    skills: ['Go', 'Kubernetes', 'AWS', 'DevOps']
+// Path to persistent students data file
+const STUDENTS_FILE = path.join(__dirname, 'students.json');
+
+// Helper to load students from students.json or initialize with defaults
+function loadStudents() {
+  try {
+    if (fs.existsSync(STUDENTS_FILE)) {
+      const content = fs.readFileSync(STUDENTS_FILE, 'utf8');
+      const parsed = JSON.parse(content);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed;
+      }
+    }
+  } catch (err) {
+    console.error('Error loading students.json:', err.message);
   }
-];
+  return [];
+}
+
+// Helper to persist students to students.json
+function saveStudents(data) {
+  try {
+    fs.writeFileSync(STUDENTS_FILE, JSON.stringify(data, null, 2), 'utf8');
+  } catch (err) {
+    console.error('Error saving students.json:', err.message);
+  }
+}
+
+// Student placement directory with 100 students (India & Abroad/Middle East)
+let students = loadStudents();
 
 // GET all students (supports query search by name, skill, or location/city)
 app.get('/api/students', (req, res) => {
@@ -65,9 +58,9 @@ app.get('/api/students', (req, res) => {
   if (query) {
     const q = query.toLowerCase().trim();
     result = result.filter(s =>
-      s.name.toLowerCase().includes(q) ||
+      (s.name && s.name.toLowerCase().includes(q)) ||
       (s.location && s.location.toLowerCase().includes(q)) ||
-      s.skills.some(sk => sk.toLowerCase().includes(q))
+      (s.skills && s.skills.some(sk => sk.toLowerCase().includes(q)))
     );
   }
 
@@ -101,6 +94,38 @@ app.get('/api/students/:id', (req, res) => {
   });
 });
 
+// POST create a new student
+app.post('/api/students', (req, res) => {
+  const { name, mobile, location, skills } = req.body;
+
+  if (!name || !name.trim()) {
+    return res.status(400).json({
+      success: false,
+      message: 'Student name is required'
+    });
+  }
+
+  const nextId = students.length > 0 ? Math.max(...students.map(s => s.id || 0)) + 1 : 1;
+  const newStudent = {
+    id: nextId,
+    name: String(name).trim(),
+    mobile: mobile ? String(mobile).trim() : '',
+    location: location ? String(location).trim() : 'Kerala, India (Open to Gulf & Abroad)',
+    skills: Array.isArray(skills)
+      ? skills.map(s => String(s).trim()).filter(Boolean)
+      : (skills ? String(skills).split(',').map(s => s.trim()).filter(Boolean) : ['Hardware Repair'])
+  };
+
+  students.push(newStudent);
+  saveStudents(students);
+
+  res.status(201).json({
+    success: true,
+    message: 'Student created successfully',
+    data: newStudent
+  });
+});
+
 // PUT update student name, mobile, location, and skills
 app.put('/api/students/:id', (req, res) => {
   const studentId = parseInt(req.params.id, 10);
@@ -124,10 +149,34 @@ app.put('/api/students/:id', (req, res) => {
       : String(skills).split(',').map(s => s.trim()).filter(Boolean);
   }
 
+  saveStudents(students);
+
   res.json({
     success: true,
     message: 'Student updated successfully',
     data: student
+  });
+});
+
+// DELETE student
+app.delete('/api/students/:id', (req, res) => {
+  const studentId = parseInt(req.params.id, 10);
+  const index = students.findIndex((s) => s.id === studentId);
+
+  if (index === -1) {
+    return res.status(404).json({
+      success: false,
+      message: `Student with ID ${studentId} not found`
+    });
+  }
+
+  const deleted = students.splice(index, 1)[0];
+  saveStudents(students);
+
+  res.json({
+    success: true,
+    message: 'Student deleted successfully',
+    data: deleted
   });
 });
 
