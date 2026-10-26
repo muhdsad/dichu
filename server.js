@@ -29,10 +29,10 @@ const students = [
   },
   {
     id: 2,
-    name: 'Priya Patel',
-    mobile: '+91 98123 45678',
-    location: 'Mumbai, India (Open to UAE & Middle East)',
-    skills: ['Python', 'Django', 'Machine Learning', 'SQL']
+    name: 'Rudaina',
+    mobile: '+91 73062 07389',
+    location: 'Kerala, India (Seeking Dubai, UAE & Middle East)',
+    skills: ['Accountant', 'Tally', 'MS Applications', 'Bookkeeping']
   },
   {
     id: 3,
@@ -43,10 +43,10 @@ const students = [
   },
   {
     id: 4,
-    name: 'Ananya Iyer',
-    mobile: '+91 97654 32109',
-    location: 'Mumbai, Maharashtra (Open to Dubai, Doha & Abroad)',
-    skills: ['Supermarket Supervisor', 'Inventory Management', 'Team Leadership', 'Customer Relations']
+    name: 'Muhammad Sadik',
+    mobile: '+91 85472 46186',
+    location: 'Kerala, India (Seeking Dubai, UAE & Middle East)',
+    skills: ['Supermarket Supervisor', 'Inventory Management', 'Store Operations', 'Customer Relations']
   },
   {
     id: 5,

@@ -418,7 +418,157 @@ const publicVacancies = [
   },
 
   // ============================================================================
-  // 3. Full Stack Web & MERN Developers (Aarav Sharma & Web developers)
+  // 3. Accountant, Tally & MS Applications Vacancies (Rudaina & Financial Accounting)
+  // ============================================================================
+
+  // --- Middle East & Abroad Vacancies ---
+  {
+    id: 'job-acc-me-01',
+    title: 'Senior Accountant & Tally Specialist',
+    company: 'Al Futtaim Group (Retail & Finance Division)',
+    source: 'NaukriGulf',
+    sourceUrl: 'https://www.naukrigulf.com/accountant-jobs-in-dubai',
+    location: 'Dubai (Festival City), UAE',
+    region: 'Middle East',
+    country: 'UAE',
+    type: 'Full-time / On-site',
+    experience: '1 - 4 Years',
+    salary: 'AED 6,000 - AED 9,500 / month (Tax-Free) + Visa + Annual Airfare',
+    skills: ['Accountant', 'Tally', 'MS Applications', 'Bookkeeping', 'Financial Reporting'],
+    description: 'Managing day-to-day accounts payable and receivable, monthly bank reconciliation in Tally Prime, UAE FTA VAT filing, and financial statement modeling using MS Applications (Excel Pivot, VLOOKUP).',
+    visaInfo: '2-Year UAE Employment Visa + Medical Insurance + Annual Ticket',
+    contact: {
+      hrName: 'Nasser Al-Subaie (Finance HR Lead)',
+      email: 'careers.finance@alfuttaim.ae',
+      phone: '+971 4 208 5000',
+      whatsapp: '+971507788990',
+      address: 'Al Futtaim HQ, Dubai Festival City, Dubai, UAE'
+    },
+    postedDate: 'Today'
+  },
+  {
+    id: 'job-acc-me-02',
+    title: 'General Accountant & MS Office Analyst',
+    company: 'Landmark Group Middle East',
+    source: 'Bayt',
+    sourceUrl: 'https://www.bayt.com/en/uae/jobs/accountant-jobs/',
+    location: 'Dubai & Sharjah, UAE',
+    region: 'Middle East',
+    country: 'UAE',
+    type: 'Full-time / On-site',
+    experience: '1 - 3 Years',
+    salary: 'AED 5,500 - AED 8,500 / month (Tax-Free) + Housing Allowance',
+    skills: ['Accountant', 'Tally', 'MS Applications', 'Bookkeeping'],
+    description: 'Handling store financial audits, vendor ledger reconciliations, invoice verification in Tally, and creating executive dashboard presentations using MS Applications (Excel & PowerPoint).',
+    visaInfo: 'Full UAE Resident Visa + Housing Allowance + End of Service Benefit',
+    contact: {
+      hrName: 'Fatima Al-Marzouqi (Talent Partner)',
+      email: 'finance.careers@landmarkgroup.com',
+      phone: '+971 4 517 4000',
+      whatsapp: '+971556611223',
+      address: 'Landmark Tower, Dubai Marina, Dubai, UAE'
+    },
+    postedDate: '1 day ago'
+  },
+  {
+    id: 'job-acc-me-03',
+    title: 'Accounts Executive & Tally Prime Specialist',
+    company: 'Lulu Financial Holdings / Lulu Exchange',
+    source: 'GulfTalent',
+    sourceUrl: 'https://www.gulftalent.com/qatar/jobs/accountant',
+    location: 'Doha, Qatar',
+    region: 'Middle East',
+    country: 'Qatar',
+    type: 'Full-time / On-site',
+    experience: '1 - 4 Years',
+    salary: 'QAR 5,000 - QAR 7,500 / month (Tax-Free) + Free Housing',
+    skills: ['Accountant', 'Tally', 'MS Applications', 'Bookkeeping'],
+    description: 'Maintaining books of accounts, treasury cash flows, remittance audit checks, and generating monthly P&L statements using Tally and advanced MS Office applications.',
+    visaInfo: 'Qatar Work Visa + Free Furnished Bachelor Accommodation + Medical Card',
+    contact: {
+      hrName: 'Praveen Pillai (GCC Financial HR)',
+      email: 'careers.gcc@luluexchange.com',
+      phone: '+974 4455 7788',
+      whatsapp: '+97466554433',
+      address: 'C-Ring Road, Doha, Qatar'
+    },
+    postedDate: '2 days ago'
+  },
+  {
+    id: 'job-acc-me-04',
+    title: 'Junior Accountant & Inventory Bookkeeper',
+    company: 'Jarir Marketing Company',
+    source: 'NaukriGulf',
+    sourceUrl: 'https://www.naukrigulf.com/accountant-jobs-in-saudi-arabia',
+    location: 'Riyadh, Saudi Arabia',
+    region: 'Middle East',
+    country: 'Saudi Arabia',
+    type: 'Full-time',
+    experience: '1 - 3 Years',
+    salary: 'SAR 5,000 - SAR 7,800 / month + Housing Allowance',
+    skills: ['Accountant', 'Tally', 'MS Applications', 'Bookkeeping'],
+    description: 'Daily billing entries, bank reconciliations, inventory cost valuation, and maintaining balance sheet ledgers with Tally and MS Excel.',
+    visaInfo: 'Iqama Transfer / Saudi Work Visa + Medical Insurance',
+    contact: {
+      hrName: 'Sultan Al-Otaibi (Recruitment Lead)',
+      email: 'finance.jobs@jarir.com',
+      phone: '+966 11 488 7700',
+      whatsapp: '+966501199887',
+      address: 'King Fahd Road, Riyadh, Saudi Arabia'
+    },
+    postedDate: '3 days ago'
+  },
+
+  // --- India Vacancies ---
+  {
+    id: 'job-acc-in-01',
+    title: 'Accountant & Tally Prime Executive',
+    company: 'Kalyan Jewellers / Retail Network',
+    source: 'Naukri',
+    sourceUrl: 'https://www.naukri.com/accountant-tally-jobs',
+    location: 'Kochi & Kozhikode, Kerala',
+    region: 'India',
+    country: 'India',
+    type: 'Full-time',
+    experience: '0 - 3 Years (Freshers Welcome)',
+    salary: '₹2,80,000 - ₹4,20,000 P.A.',
+    skills: ['Accountant', 'Tally', 'MS Applications', 'Bookkeeping'],
+    description: 'Managing billing entries, day book accounting in Tally Prime, GST filing, TDS deductions, and preparing financial statements with MS Excel.',
+    contact: {
+      hrName: 'Sujith Menon (HR Operations)',
+      email: 'careers.accounts@kalyanjewellers.net',
+      phone: '+91 487 243 7333',
+      whatsapp: '+919447012345',
+      address: 'Round West, Thrissur & Calicut, Kerala'
+    },
+    postedDate: 'Today'
+  },
+  {
+    id: 'job-acc-in-02',
+    title: 'Accounts Officer & Financial Data Associate',
+    company: 'Muthoot Finance Ltd',
+    source: 'Indeed',
+    sourceUrl: 'https://in.indeed.com/q-tally-accountant-jobs.html',
+    location: 'Kochi, Bengaluru & Chennai',
+    region: 'India',
+    country: 'India',
+    type: 'Full-time',
+    experience: '1 - 4 Years',
+    salary: '₹3,20,000 - ₹5,00,000 P.A. + Incentives',
+    skills: ['Accountant', 'Tally', 'MS Applications', 'Financial Reporting'],
+    description: 'Branch audit, ledger verification, loan disbursement reconciliation in Tally, and creating MIS reports using MS Excel and Access.',
+    contact: {
+      hrName: 'Anitha Varma (Talent Acquisition)',
+      email: 'hiring.finance@muthootgroup.com',
+      phone: '+91 484 239 6478',
+      whatsapp: '+919847055667',
+      address: 'Muthoot Chambers, Banerji Road, Kochi, Kerala 682018'
+    },
+    postedDate: '1 day ago'
+  },
+
+  // ============================================================================
+  // 4. Full Stack Web & MERN Developers (Aarav Sharma & Web developers)
   // ============================================================================
 
   // --- Middle East & Abroad Vacancies ---
