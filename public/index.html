@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#0b1120">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>Student Placement & Job Vacancy Hub</title>
+  <title>Student Placement & Job Vacancy Hub (India & Middle East / Abroad)</title>
   <style>
     :root {
       --bg: #0b1120;
@@ -17,6 +17,7 @@
       --text-muted: #94a3b8;
       --primary: #38bdf8;
       --accent: #818cf8;
+      --gold: #f59e0b;
       --skill-bg: #0284c7;
       --skill-text: #e0f2fe;
       --success: #10b981;
@@ -38,7 +39,6 @@
       background-color: var(--bg);
       color: var(--text-main);
       min-block-size: 100dvh;
-      /* Safe area insets for notches & home bars on iOS and modern Android */
       padding-block-start: max(1rem, env(safe-area-inset-top));
       padding-block-end: max(2rem, env(safe-area-inset-bottom));
       padding-inline: max(0.85rem, env(safe-area-inset-left));
@@ -77,10 +77,9 @@
     }
 
     header h1 {
-      /* Fluid typography: scales gracefully between 320px and 1200px */
       font-size: clamp(1.65rem, 1.3rem + 2.4vw, 2.4rem);
       font-weight: 800;
-      background: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc);
+      background: linear-gradient(135deg, #38bdf8, #818cf8, #fbbf24);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       margin-block-end: 0.5rem;
@@ -90,32 +89,54 @@
     header p {
       color: var(--text-muted);
       font-size: clamp(0.9rem, 0.85rem + 0.35vw, 1.05rem);
-      max-inline-size: 680px;
+      max-inline-size: 720px;
       margin-inline: auto;
       line-height: 1.45;
     }
 
-    /* Mobile First Controls (Stacked by default, rows on tablet+) */
+    /* Controls Container */
     .controls {
       display: flex;
       flex-direction: column;
       gap: 0.85rem;
       margin-block-end: 1.5rem;
       background: rgba(30, 41, 59, 0.6);
-      padding: 0.9rem;
-      border-radius: 14px;
+      padding: 1rem;
+      border-radius: 16px;
       border: 1px solid var(--card-border);
+    }
+
+    .search-inputs-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      inline-size: 100%;
+    }
+
+    .input-with-icon {
+      position: relative;
+      display: flex;
+      align-items: center;
+      inline-size: 100%;
+    }
+
+    .field-icon {
+      position: absolute;
+      left: 0.85rem;
+      font-size: 1.1rem;
+      pointer-events: none;
+      z-index: 2;
     }
 
     .search-input {
       inline-size: 100%;
       min-block-size: var(--tap-target-min);
-      padding: 0.75rem 1rem;
+      padding: 0.75rem 1rem 0.75rem 2.6rem;
       border-radius: 10px;
       border: 1px solid var(--card-border);
       background: var(--card-inner);
       color: var(--text-main);
-      font-size: 1rem; /* 16px to prevent auto-zoom in iOS Safari */
+      font-size: 1rem;
       outline: none;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
@@ -123,6 +144,104 @@
     .search-input:focus {
       border-color: var(--primary);
       box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+    }
+
+    .place-input:focus {
+      border-color: #fbbf24;
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.25);
+    }
+
+    .clear-city-btn {
+      position: absolute;
+      right: 0.75rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: var(--text-muted);
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+
+    .clear-city-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+    }
+
+    /* Location Quick Filter Chips Bar */
+    .location-chips-bar {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding-top: 0.1rem;
+    }
+
+    .chips-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .chips-scroll {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      gap: 0.45rem;
+      padding-bottom: 0.35rem;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+    }
+
+    .loc-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.4rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      white-space: nowrap;
+      border: 1px solid var(--card-border);
+      background: rgba(15, 23, 42, 0.75);
+      color: #cbd5e1;
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .loc-chip:hover {
+      background: #334155;
+      color: #fff;
+    }
+
+    .loc-chip.active {
+      background: #0284c7;
+      color: #fff;
+      border-color: #38bdf8;
+      box-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
+    }
+
+    .loc-chip.chip-abroad {
+      border-color: rgba(245, 158, 11, 0.4);
+    }
+
+    .loc-chip.chip-abroad:hover {
+      border-color: #fbbf24;
+      background: rgba(245, 158, 11, 0.2);
+    }
+
+    .loc-chip.chip-abroad.active {
+      background: linear-gradient(135deg, #d97706, #b45309);
+      border-color: #fbbf24;
+      color: #fff;
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.45);
     }
 
     .action-links {
@@ -150,8 +269,8 @@
       transition: opacity 0.2s;
     }
 
-    .btn-browse-all:hover, .btn-browse-all:active {
-      opacity: 0.92;
+    .btn-browse-all:active {
+      opacity: 0.85;
     }
 
     .api-badge {
@@ -160,30 +279,31 @@
       justify-content: center;
       gap: 0.4rem;
       min-block-size: var(--tap-target-min);
-      background: #1e1b4b;
-      color: #a5b4fc;
-      border: 1px solid #4338ca;
-      padding: 0.55rem 0.85rem;
+      background: var(--card-inner);
+      color: var(--primary);
+      border: 1px solid var(--card-border);
+      padding: 0.65rem 1rem;
       border-radius: 10px;
+      font-size: 0.875rem;
+      font-weight: 700;
       text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 600;
       touch-action: manipulation;
+      transition: background-color 0.2s, border-color 0.2s;
     }
 
-    .api-badge:hover, .api-badge:active {
-      background: #312e81;
-      color: #ffffff;
+    .api-badge:active {
+      background-color: var(--card-bg);
+      border-color: var(--primary);
     }
 
-    /* Grid: 1 column on mobile, responsive cards on larger screens */
+    /* Cards Grid */
     .grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 1.15rem;
+      gap: 1.25rem;
+      margin-block-end: 2rem;
     }
 
-    /* Student Card */
     .card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -191,16 +311,20 @@
       padding: 1.15rem;
       display: flex;
       flex-direction: column;
-      gap: 1rem;
-      position: relative;
-      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+      gap: 0.85rem;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+    }
+
+    .card:hover {
+      border-color: var(--primary);
+      box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.4);
     }
 
     .card-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 0.5rem;
+      gap: 0.75rem;
     }
 
     .user-info {
@@ -214,15 +338,15 @@
       inline-size: 44px;
       block-size: 44px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #0284c7, #818cf8);
+      background: linear-gradient(135deg, var(--primary), var(--accent));
       display: flex;
-      place-content: center;
-      place-items: center;
+      align-items: center;
+      justify-content: center;
       font-weight: 800;
-      font-size: 1.1rem;
-      color: #ffffff;
+      color: #0f172a;
       flex-shrink: 0;
-      box-shadow: 0 4px 10px rgba(2, 132, 199, 0.3);
+      font-size: 1.05rem;
+      border: 2px solid rgba(255, 255, 255, 0.15);
     }
 
     .card-title {
@@ -232,7 +356,7 @@
     .card-title h2 {
       font-size: 1.15rem;
       font-weight: 700;
-      color: #ffffff;
+      color: var(--text-main);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -241,54 +365,85 @@
     .student-id {
       font-size: 0.75rem;
       color: var(--text-muted);
+      font-weight: 600;
     }
 
     .edit-btn {
-      background: rgba(51, 65, 85, 0.8);
-      color: #cbd5e1;
-      border: 1px solid #475569;
-      min-block-size: 36px;
-      padding: 0.4rem 0.75rem;
+      min-block-size: 38px;
+      min-inline-size: 38px;
+      padding: 0.4rem 0.7rem;
       border-radius: 8px;
-      font-size: 0.8rem;
-      font-weight: 600;
+      border: 1px solid var(--card-border);
+      background: var(--card-inner);
+      color: var(--primary);
       cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
       touch-action: manipulation;
-      transition: all 0.2s;
-      flex-shrink: 0;
+      transition: background-color 0.2s;
     }
 
-    .edit-btn:hover, .edit-btn:active {
-      background: var(--primary);
-      color: #0f172a;
-      border-color: var(--primary);
+    .edit-btn:active {
+      background-color: #334155;
     }
 
     .contact-row {
       display: flex;
       align-items: center;
-      gap: 0.6rem;
+      gap: 0.5rem;
+      font-size: 0.9rem;
       color: var(--text-muted);
-      font-size: 0.95rem;
-      background: rgba(15, 23, 42, 0.5);
-      padding: 0.6rem 0.85rem;
-      border-radius: 10px;
-      min-block-size: 42px;
     }
 
     .contact-row a {
-      color: var(--primary);
+      color: var(--text-main);
       text-decoration: none;
-      font-weight: 600;
-      word-break: break-all;
+      font-weight: 500;
+    }
+
+    .contact-row a:hover {
+      text-decoration: underline;
+      color: var(--primary);
+    }
+
+    .student-location-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.4rem 0.6rem;
+      font-size: 0.85rem;
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.08);
+      padding: 0.45rem 0.65rem;
+      border-radius: 8px;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+
+    .abroad-tag-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      background: rgba(245, 158, 11, 0.18);
+      border: 1px solid rgba(245, 158, 11, 0.45);
+      color: #fbbf24;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.15rem 0.45rem;
+      border-radius: 9999px;
+      margin-left: auto;
     }
 
     .skills-heading {
       font-size: 0.75rem;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.05em;
       color: var(--text-muted);
       font-weight: 700;
+      margin-block-end: 0.4rem;
     }
 
     .skills-list {
@@ -296,154 +451,129 @@
       flex-wrap: wrap;
       gap: 0.4rem;
       list-style: none;
-      margin-block-start: 0.45rem;
     }
 
     .skill-tag {
-      background: rgba(2, 132, 199, 0.16);
+      background: rgba(2, 132, 199, 0.18);
       color: #7dd3fc;
-      border: 1px solid rgba(2, 132, 199, 0.35);
-      padding: 0.3rem 0.65rem;
-      border-radius: 9999px;
+      border: 1px solid rgba(2, 132, 199, 0.4);
+      padding: 0.25rem 0.55rem;
+      border-radius: 6px;
       font-size: 0.8rem;
-      font-weight: 500;
+      font-weight: 600;
     }
 
-    /* Card Action (Find Vacancies) */
     .card-actions {
-      margin-block-start: auto;
-      padding-block-start: 0.5rem;
-      border-block-start: 1px solid rgba(51, 65, 85, 0.6);
+      margin-block-start: 0.35rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
     }
 
     .btn-find-jobs {
-      inline-size: 100%;
       min-block-size: var(--tap-target-min);
-      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      inline-size: 100%;
+      background: linear-gradient(135deg, #0284c7, #2563eb);
       color: #ffffff;
       border: none;
-      padding: 0.75rem 1rem;
       border-radius: 10px;
-      font-size: 0.95rem;
+      padding: 0.75rem 1rem;
+      font-size: 0.925rem;
       font-weight: 700;
-      cursor: pointer;
-      touch-action: manipulation;
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-      transition: all 0.2s;
+      justify-content: space-between;
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: transform 0.15s, opacity 0.2s;
     }
 
-    .btn-find-jobs:hover, .btn-find-jobs:active {
-      background: linear-gradient(135deg, #0369a1 0%, #1d4ed8 100%);
-      transform: translateY(-1px);
+    .btn-find-jobs:active {
+      transform: scale(0.98);
+      opacity: 0.9;
     }
 
-    .btn-find-jobs .badge-tag {
-      background: rgba(255, 255, 255, 0.22);
-      font-size: 0.7rem;
-      padding: 0.15rem 0.4rem;
+    .badge-tag {
+      background: rgba(255, 255, 255, 0.2);
+      font-size: 0.725rem;
+      padding: 0.2rem 0.45rem;
       border-radius: 4px;
       font-weight: 600;
     }
 
-    .empty-state {
-      text-align: center;
-      padding: 2.5rem 1rem;
-      color: var(--text-muted);
-      background: var(--card-bg);
-      border-radius: 12px;
-      border: 1px dashed var(--card-border);
-    }
-
-    /* Mobile First Modal & Bottom-Sheet Behavior */
+    /* Modals base styles */
     dialog {
-      margin: auto;
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      background: #1e293b;
+      background: var(--card-bg);
       color: var(--text-main);
-      padding: 1.5rem;
-      inline-size: min(94vw, 440px);
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
-      overscroll-behavior: contain;
+      border: 1px solid var(--card-border);
+      border-radius: 20px 20px 0 0;
+      padding: 0;
+      inline-size: 100%;
+      max-inline-size: 100%;
+      margin-block-start: auto;
+      margin-block-end: 0;
+      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.6);
+      outline: none;
+      transition: transform 0.25s ease-out;
     }
 
-    /* Essential: Ensure closed dialogs are strictly hidden even with custom ID specificity */
     dialog:not([open]) {
       display: none !important;
     }
 
     dialog::backdrop {
-      background: rgba(11, 17, 32, 0.85);
-      backdrop-filter: blur(8px);
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
     }
 
-    /* Job Vacancy Dialog: On Mobile it acts as a Native-like Bottom Sheet */
-    dialog#jobsDialog {
-      inline-size: 100%;
-      max-inline-size: 100%;
-      block-size: 92dvh;
-      max-block-size: 92dvh;
-      margin-block-start: auto;
-      margin-block-end: 0;
-      margin-inline: 0;
-      border-radius: 20px 20px 0 0;
-      border-bottom: none;
-      flex-direction: column;
-      padding: 0;
-      overflow: hidden;
-    }
-
-    dialog#jobsDialog[open] {
-      display: flex;
-    }
-
-    /* Touch Sheet Drag Handle */
     .sheet-handle-bar {
-      display: block;
-      inline-size: 38px;
+      inline-size: 40px;
       block-size: 4px;
       background: #475569;
       border-radius: 9999px;
-      margin: 0.5rem auto 0.25rem;
+      margin: 0.65rem auto 0.25rem auto;
+    }
+
+    /* Jobs Modal Styles */
+    dialog#jobsDialog {
+      block-size: 92dvh;
+      max-block-size: 92dvh;
+      display: flex;
+      flex-direction: column;
     }
 
     .jobs-modal-header {
-      background: #0f172a;
+      padding: 1rem 1.15rem;
       border-block-end: 1px solid var(--card-border);
-      padding: 0.85rem 1rem;
       display: flex;
-      justify-content: space-between;
       align-items: flex-start;
+      justify-content: space-between;
       gap: 0.75rem;
-      position: sticky;
-      top: 0;
-      z-index: 10;
+      flex-shrink: 0;
     }
 
     .modal-close-btn {
-      background: #334155;
-      border: none;
-      color: #cbd5e1;
-      inline-size: 36px;
-      block-size: 36px;
+      min-block-size: 44px;
+      min-inline-size: 44px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
+      border: 1px solid var(--card-border);
+      background: var(--card-inner);
+      color: var(--text-main);
+      font-size: 1.5rem;
+      line-height: 1;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.25rem;
-      touch-action: manipulation;
       flex-shrink: 0;
-      transition: background 0.2s;
+      touch-action: manipulation;
     }
 
-    .modal-close-btn:hover, .modal-close-btn:active {
-      background: #ef4444;
-      color: #ffffff;
+    .modal-close-btn:hover {
+      background: #334155;
+      color: var(--primary);
     }
 
     .jobs-modal-body {
@@ -457,7 +587,7 @@
       flex: 1;
     }
 
-    /* Portal Quick Search Bar (Mobile horizontal swipe scroll) */
+    /* Portals Banner */
     .portal-banner {
       background: rgba(15, 23, 42, 0.7);
       border: 1px solid var(--card-border);
@@ -508,20 +638,68 @@
       transform: scale(0.97);
     }
 
-    /* Filters Bar */
+    /* Modal Filter Bar */
     .jobs-filter-bar {
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
-      background: rgba(15, 23, 42, 0.5);
-      padding: 0.75rem;
-      border-radius: 10px;
+      gap: 0.75rem;
+      background: rgba(15, 23, 42, 0.6);
+      padding: 0.85rem;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
     }
 
     .filter-count {
-      font-size: 0.85rem;
+      font-size: 0.875rem;
       font-weight: 600;
       color: #38bdf8;
+    }
+
+    .highlight-place {
+      color: #fbbf24;
+      font-weight: 700;
+    }
+
+    .modal-filters-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .modal-city-search-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .modal-city-search-box span {
+      position: absolute;
+      left: 0.75rem;
+      font-size: 1rem;
+      pointer-events: none;
+    }
+
+    .modal-city-field {
+      inline-size: 100%;
+      min-block-size: var(--tap-target-min);
+      background: #0f172a;
+      border: 1px solid var(--card-border);
+      color: #f8fafc;
+      padding: 0.55rem 0.85rem 0.55rem 2.4rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .modal-city-field:focus {
+      border-color: #fbbf24;
+      box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.2);
+    }
+
+    .modal-selects-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
     }
 
     .source-filter-select {
@@ -532,7 +710,7 @@
       color: #f8fafc;
       padding: 0.55rem 0.85rem;
       border-radius: 8px;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       outline: none;
     }
 
@@ -546,12 +724,17 @@
     .job-card {
       background: #0f172a;
       border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 1rem;
+      border-radius: 14px;
+      padding: 1.05rem;
       display: flex;
       flex-direction: column;
       gap: 0.85rem;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+
+    .job-card.is-abroad {
+      border-color: rgba(245, 158, 11, 0.35);
     }
 
     .job-card-top {
@@ -563,6 +746,7 @@
     .job-badges-mobile {
       display: flex;
       align-items: center;
+      flex-wrap: wrap;
       gap: 0.45rem;
       margin-block-end: 0.2rem;
     }
@@ -596,6 +780,19 @@
       border-radius: 9999px;
     }
 
+    .abroad-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      background: rgba(245, 158, 11, 0.2);
+      border: 1px solid rgba(245, 158, 11, 0.5);
+      color: #fbbf24;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 0.2rem 0.5rem;
+      border-radius: 9999px;
+    }
+
     .source-tag {
       font-size: 0.75rem;
       font-weight: 700;
@@ -604,6 +801,9 @@
       color: #ffffff;
     }
 
+    .source-naukrigulf { background: #e65100; }
+    .source-bayt { background: #00838f; }
+    .source-gulftalent { background: #1565c0; }
     .source-naukri { background: #005bbb; }
     .source-linkedin { background: #0a66c2; }
     .source-indeed { background: #2557a7; }
@@ -623,6 +823,23 @@
       display: inline-flex;
       align-items: center;
       gap: 0.3rem;
+    }
+
+    .job-meta-item.location-highlight {
+      color: #38bdf8;
+      font-weight: 600;
+    }
+
+    .visa-benefit-banner {
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      color: #fde68a;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
     }
 
     .job-desc {
@@ -656,15 +873,15 @@
     .hr-details-grid {
       display: flex;
       flex-direction: column;
-      gap: 0.55rem;
-      font-size: 0.875rem;
+      gap: 0.45rem;
     }
 
     .hr-detail-item {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      color: #cbd5e1;
+      font-size: 0.85rem;
+      color: #e2e8f0;
       word-break: break-all;
     }
 
@@ -672,49 +889,51 @@
       color: #38bdf8;
       text-decoration: none;
       font-weight: 600;
-      min-block-size: 28px;
-      display: inline-flex;
-      align-items: center;
     }
 
-    /* Mobile First Job Actions Row */
+    .hr-detail-item a:hover {
+      text-decoration: underline;
+    }
+
+    /* Mobile Buttons Grid */
     .job-actions-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 0.55rem;
-      margin-block-start: 0.35rem;
+      gap: 0.6rem;
     }
 
     .btn-apply-email {
-      grid-column: span 2;
+      grid-column: 1 / -1;
       min-block-size: var(--tap-target-min);
-      background: linear-gradient(135deg, #059669, #10b981);
+      background: linear-gradient(135deg, #0284c7, #2563eb);
       color: #ffffff;
-      padding: 0.65rem 0.95rem;
+      border: none;
       border-radius: 8px;
+      padding: 0.65rem 0.75rem;
       font-size: 0.9rem;
       font-weight: 700;
-      text-decoration: none;
-      display: inline-flex;
+      display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.4rem;
+      text-decoration: none;
       touch-action: manipulation;
     }
 
     .btn-apply-wa {
       min-block-size: var(--tap-target-min);
-      background: #25d366;
-      color: #0b1120;
-      padding: 0.55rem 0.75rem;
+      background: #15803d;
+      color: #ffffff;
+      border: none;
       border-radius: 8px;
+      padding: 0.65rem 0.75rem;
       font-size: 0.85rem;
-      font-weight: 800;
-      text-decoration: none;
-      display: inline-flex;
+      font-weight: 700;
+      display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.35rem;
+      text-decoration: none;
       touch-action: manipulation;
     }
 
@@ -723,48 +942,51 @@
       background: #334155;
       color: #f8fafc;
       border: 1px solid #475569;
-      padding: 0.55rem 0.75rem;
       border-radius: 8px;
+      padding: 0.65rem 0.75rem;
       font-size: 0.85rem;
-      font-weight: 600;
-      text-decoration: none;
-      display: inline-flex;
+      font-weight: 700;
+      display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.35rem;
+      text-decoration: none;
       touch-action: manipulation;
     }
 
     .btn-view-portal {
-      grid-column: span 2;
+      grid-column: 1 / -1;
       min-block-size: var(--tap-target-min);
       background: #1e293b;
-      color: #cbd5e1;
-      border: 1px solid #475569;
-      padding: 0.55rem 0.85rem;
+      color: #94a3b8;
+      border: 1px solid var(--card-border);
       border-radius: 8px;
+      padding: 0.65rem 0.75rem;
       font-size: 0.85rem;
       font-weight: 600;
-      text-decoration: none;
-      display: inline-flex;
+      display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.4rem;
+      gap: 0.35rem;
+      text-decoration: none;
       touch-action: manipulation;
     }
 
-    /* Edit Dialog Modal for Mobile (Bottom sheet on mobile) */
+    /* Edit Dialog Modal Styles */
     dialog#editDialog {
-      inline-size: 100%;
-      max-inline-size: 100%;
-      margin-block-start: auto;
-      margin-block-end: 0;
+      block-size: auto;
+      max-block-size: 90dvh;
+      padding: 1.25rem;
       border-radius: 20px 20px 0 0;
-      border-bottom: none;
+    }
+
+    #editForm {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
 
     .form-group {
-      margin-block-end: 1rem;
       display: flex;
       flex-direction: column;
       gap: 0.4rem;
@@ -772,18 +994,19 @@
 
     .form-group label {
       font-size: 0.85rem;
-      color: var(--text-muted);
       font-weight: 600;
+      color: var(--text-muted);
     }
 
     .form-group input {
+      inline-size: 100%;
       min-block-size: var(--tap-target-min);
+      background: var(--card-inner);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
       padding: 0.65rem 0.85rem;
       border-radius: 8px;
-      border: 1px solid var(--card-border);
-      background: #0f172a;
-      color: #f8fafc;
-      font-size: 1rem; /* 16px prevents iOS Safari zoom */
+      font-size: 1rem;
       outline: none;
     }
 
@@ -795,7 +1018,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 0.75rem;
-      margin-block-start: 1.25rem;
+      margin-block-start: 0.5rem;
     }
 
     .btn {
@@ -819,7 +1042,16 @@
       color: #0f172a;
     }
 
-    /* Loading Spinner */
+    .empty-state {
+      text-align: center;
+      padding: 2.5rem 1rem;
+      color: #94a3b8;
+      font-size: 0.95rem;
+      background: rgba(15, 23, 42, 0.4);
+      border-radius: 12px;
+      border: 1px dashed var(--card-border);
+    }
+
     .loading-state {
       text-align: center;
       padding: 3rem 1rem;
@@ -849,14 +1081,20 @@
         padding-inline: 1.5rem;
       }
 
-      .controls {
+      .search-inputs-group {
         flex-direction: row;
         align-items: center;
-        justify-content: space-between;
       }
 
-      .search-input {
-        max-inline-size: 380px;
+      .location-chips-bar {
+        flex-direction: row;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .chips-scroll {
+        flex-wrap: wrap;
+        overflow-x: visible;
       }
 
       .action-links {
@@ -865,7 +1103,7 @@
       }
 
       .grid {
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
         gap: 1.4rem;
       }
 
@@ -873,7 +1111,6 @@
         padding: 1.35rem;
       }
 
-      /* Desktop / Tablet Modal Dialog */
       dialog#jobsDialog {
         inline-size: min(94vw, 920px);
         max-inline-size: 920px;
@@ -906,6 +1143,20 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+      }
+
+      .modal-filters-controls {
+        flex-direction: row;
+        align-items: center;
+        gap: 0.6rem;
+      }
+
+      .modal-city-field {
+        inline-size: 200px;
+      }
+
+      .modal-selects-row {
+        display: flex;
       }
 
       .source-filter-select {
@@ -943,23 +1194,11 @@
       }
 
       dialog#editDialog {
-        inline-size: min(90vw, 440px);
-        max-inline-size: 440px;
+        inline-size: min(90vw, 460px);
+        max-inline-size: 460px;
         margin: auto;
         border-radius: 14px;
         border-bottom: 1px solid var(--card-border);
-      }
-
-      .modal-actions {
-        display: flex;
-        justify-content: flex-end;
-      }
-    }
-
-    @media (min-width: 1024px) {
-      .grid {
-        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-        gap: 1.5rem;
       }
     }
   </style>
@@ -967,19 +1206,54 @@
 <body>
   <div class="container">
     <header>
-      <div class="brand-badge">⚡ Real-Time Placement Engine</div>
-      <h1>Student Directory & Job Vacancy Hub</h1>
-      <p>Instant job vacancies from Naukri, LinkedIn, and Indeed matched to each student's specific skills with direct recruiter contact details.</p>
+      <div class="brand-badge">⚡ Global Placement & Vacancy Hub</div>
+      <h1>Student Directory & Global Vacancies</h1>
+      <p>Verified openings across India & Middle East / Abroad (Dubai, Abu Dhabi, Doha, Riyadh, Muscat) with direct recruiter contact details.</p>
     </header>
 
     <div class="controls">
-      <input
-        type="search"
-        id="search"
-        class="search-input"
-        placeholder="🔍 Search student or skill..."
-        aria-label="Search students"
-      >
+      <!-- Search Fields Group (Student/Skill + City/Place) -->
+      <div class="search-inputs-group">
+        <div class="input-with-icon" style="flex: 1.3;">
+          <span class="field-icon">🔍</span>
+          <input
+            type="search"
+            id="search"
+            class="search-input"
+            placeholder="Search student or skill (e.g. iPhone Tech, React, Supermarket)..."
+            aria-label="Search students"
+          >
+        </div>
+
+        <div class="input-with-icon place-field-container" style="flex: 1;">
+          <span class="field-icon">📍</span>
+          <input
+            type="search"
+            id="citySearch"
+            class="search-input place-input"
+            placeholder="Search city / abroad (e.g. Dubai, Doha, Riyadh, Bengaluru...)"
+            aria-label="Search by city or country"
+          >
+          <button type="button" id="clearCityBtn" class="clear-city-btn" onclick="clearCitySearch()" title="Clear City Search" style="display: none;">&times;</button>
+        </div>
+      </div>
+
+      <!-- Quick Destination Chips -->
+      <div class="location-chips-bar">
+        <span class="chips-label">📍 Destination:</span>
+        <div class="chips-scroll">
+          <button type="button" class="loc-chip active" data-loc="" onclick="selectLocationChip('')">🌐 All Places</button>
+          <button type="button" class="loc-chip chip-abroad" data-loc="Dubai" onclick="selectLocationChip('Dubai')">🇦🇪 Dubai, UAE</button>
+          <button type="button" class="loc-chip chip-abroad" data-loc="Riyadh" onclick="selectLocationChip('Riyadh')">🇸🇦 Riyadh, KSA</button>
+          <button type="button" class="loc-chip chip-abroad" data-loc="Doha" onclick="selectLocationChip('Doha')">🇶🇦 Doha, Qatar</button>
+          <button type="button" class="loc-chip chip-abroad" data-loc="Middle East" onclick="selectLocationChip('Middle East')">✈️ Middle East / Abroad</button>
+          <button type="button" class="loc-chip" data-loc="Bengaluru" onclick="selectLocationChip('Bengaluru')">🇮🇳 Bengaluru</button>
+          <button type="button" class="loc-chip" data-loc="Mumbai" onclick="selectLocationChip('Mumbai')">🇮🇳 Mumbai</button>
+          <button type="button" class="loc-chip" data-loc="Delhi" onclick="selectLocationChip('Delhi')">🇮🇳 Delhi-NCR</button>
+        </div>
+      </div>
+
+      <!-- Action Links -->
       <div class="action-links">
         <button class="btn-browse-all" onclick="openAllJobsModal()">
           <span>💼 Browse All Vacancies</span>
@@ -1005,7 +1279,7 @@
     <div class="jobs-modal-header">
       <div>
         <h3 id="jobsModalTitle" style="font-size: 1.25rem; color: #38bdf8; margin-bottom: 0.2rem;">Job Vacancies</h3>
-        <p id="jobsModalSubtitle" style="font-size: 0.85rem; color: #94a3b8;">Public listings with direct recruiter contact info</p>
+        <p id="jobsModalSubtitle" style="font-size: 0.85rem; color: #94a3b8;">Verified openings in India & Middle East / Abroad</p>
       </div>
       <button type="button" class="modal-close-btn" id="jobsCloseBtn" onclick="closeJobsModal()" title="Close Window" aria-label="Close Window">&times;</button>
     </div>
@@ -1033,6 +1307,12 @@
       </div>
 
       <div class="form-group">
+        <label for="editLocation">Location / Preferred Cities</label>
+        <input type="text" id="editLocation" required placeholder="e.g. Calicut, Kerala (Seeking Dubai, UAE & Saudi Arabia)">
+        <small style="color: #64748b; font-size: 0.75rem;">City, state or preferred abroad destinations (e.g. Dubai, Riyadh, Bengaluru)</small>
+      </div>
+
+      <div class="form-group">
         <label for="editSkills">Skills (comma-separated)</label>
         <input type="text" id="editSkills" required placeholder="e.g. iPhone Technician, Hardware Repair">
         <small style="color: #64748b; font-size: 0.75rem;">Separate multiple skills with a comma ( , )</small>
@@ -1049,6 +1329,9 @@
     let allStudents = [];
     let currentJobsList = [];
     let activeStudent = null;
+    let activeCityFilter = '';
+    let activeRegionFilter = 'All';
+    let activeSourceFilter = 'All';
 
     function getInitials(name) {
       return (name || '')
@@ -1061,6 +1344,9 @@
 
     function getSourceClass(source) {
       const s = (source || '').toLowerCase();
+      if (s.includes('naukrigulf')) return 'source-naukrigulf';
+      if (s.includes('bayt')) return 'source-bayt';
+      if (s.includes('gulftalent')) return 'source-gulftalent';
       if (s.includes('naukri')) return 'source-naukri';
       if (s.includes('linkedin')) return 'source-linkedin';
       if (s.includes('indeed')) return 'source-indeed';
@@ -1069,47 +1355,74 @@
       return 'source-default';
     }
 
+    function getCountryFlag(country) {
+      const c = (country || '').toLowerCase();
+      if (c.includes('uae') || c.includes('emirates') || c.includes('dubai')) return '🇦🇪';
+      if (c.includes('saudi') || c.includes('ksa') || c.includes('riyadh')) return '🇸🇦';
+      if (c.includes('qatar') || c.includes('doha')) return '🇶🇦';
+      if (c.includes('oman') || c.includes('muscat')) return '🇴🇲';
+      if (c.includes('india')) return '🇮🇳';
+      if (c.includes('remote') || c.includes('worldwide')) return '🌐';
+      return '📍';
+    }
+
     function renderStudents(students) {
       const grid = document.getElementById('studentsGrid');
 
       if (!students || students.length === 0) {
-        grid.innerHTML = '<div class="empty-state">No students found matching your search.</div>';
+        grid.innerHTML = '<div class="empty-state">No students found matching your search. Try resetting the city or keyword filter!</div>';
         return;
       }
 
-      grid.innerHTML = students.map(student => `
-        <article class="card">
-          <div class="card-header">
-            <div class="user-info">
-              <div class="avatar">${getInitials(student.name)}</div>
-              <div class="card-title">
-                <h2>${student.name}</h2>
-                <span class="student-id">Student ID: #${student.id}</span>
+      grid.innerHTML = students.map(student => {
+        const isAbroadReady = student.location && (
+          student.location.toLowerCase().includes('dubai') ||
+          student.location.toLowerCase().includes('abroad') ||
+          student.location.toLowerCase().includes('middle east') ||
+          student.location.toLowerCase().includes('saudi') ||
+          student.location.toLowerCase().includes('qatar')
+        );
+
+        return `
+          <article class="card">
+            <div class="card-header">
+              <div class="user-info">
+                <div class="avatar">${getInitials(student.name)}</div>
+                <div class="card-title">
+                  <h2>${student.name}</h2>
+                  <span class="student-id">Student ID: #${student.id}</span>
+                </div>
               </div>
+              <button class="edit-btn" onclick="openEditModal(${student.id})" title="Edit Details">✏️ Edit</button>
             </div>
-            <button class="edit-btn" onclick="openEditModal(${student.id})" title="Edit Details">✏️ Edit</button>
-          </div>
 
-          <div class="contact-row">
-            <span>📱</span>
-            <a href="tel:${student.mobile.replace(/\\s+/g, '')}">${student.mobile}</a>
-          </div>
+            <div class="contact-row">
+              <span>📱</span>
+              <a href="tel:${student.mobile.replace(/\\s+/g, '')}">${student.mobile}</a>
+            </div>
 
-          <div>
-            <div class="skills-heading">Skills & Specializations</div>
-            <ul class="skills-list">
-              ${student.skills.map(skill => `<li class="skill-tag">${skill}</li>`).join('')}
-            </ul>
-          </div>
+            <div class="student-location-row">
+              <span>📍</span>
+              <span>${student.location || 'Location Not Specified'}</span>
+              ${isAbroadReady ? `<span class="abroad-tag-pill">✈️ Gulf / Abroad Ready</span>` : ''}
+            </div>
 
-          <div class="card-actions">
-            <button class="btn-find-jobs" onclick="fetchJobsForStudent(${student.id})">
-              <span>💼 Find Vacancies for ${student.name.split(' ')[0]}</span>
-              <span class="badge-tag">Naukri & More</span>
-            </button>
-          </div>
-        </article>
-      `).join('');
+            <div>
+              <div class="skills-heading">Skills & Specializations</div>
+              <ul class="skills-list">
+                ${student.skills.map(skill => `<li class="skill-tag">${skill}</li>`).join('')}
+              </ul>
+            </div>
+
+            <div class="card-actions">
+              <button class="btn-find-jobs" onclick="fetchJobsForStudent(${student.id})">
+                <span>💼 Vacancies for ${student.name.split(' ')[0]}</span>
+                <span class="badge-tag">${isAbroadReady ? '🇦🇪 Gulf & 🇮🇳 India' : 'Active Vacancies'}</span>
+              </button>
+            </div>
+          </article>
+        `;
+      }).join('');
     }
 
     async function loadStudents() {
@@ -1118,13 +1431,38 @@
         const json = await response.json();
         if (json.success) {
           allStudents = json.data;
-          renderStudents(allStudents);
+          filterStudentsList();
         }
       } catch (err) {
         console.error('Failed to load students:', err);
         document.getElementById('studentsGrid').innerHTML =
           '<div class="empty-state">Failed to load student data. Ensure the server is running.</div>';
       }
+    }
+
+    function filterStudentsList() {
+      const q = (document.getElementById('search').value || '').toLowerCase().trim();
+      const city = (document.getElementById('citySearch').value || '').toLowerCase().trim();
+
+      const filtered = allStudents.filter(student => {
+        const matchName = student.name.toLowerCase().includes(q);
+        const matchSkill = student.skills.some(skill => skill.toLowerCase().includes(q));
+        const matchText = !q || matchName || matchSkill;
+
+        let matchCity = true;
+        if (city) {
+          const loc = (student.location || '').toLowerCase();
+          if (city === 'middle east' || city === 'abroad') {
+            matchCity = loc.includes('dubai') || loc.includes('saudi') || loc.includes('middle east') || loc.includes('abroad') || loc.includes('qatar') || loc.includes('uae');
+          } else {
+            matchCity = loc.includes(city);
+          }
+        }
+
+        return matchText && matchCity;
+      });
+
+      renderStudents(filtered);
     }
 
     // Modal Handling for Jobs
@@ -1142,7 +1480,6 @@
       }
     }
 
-    // Attach explicit listener to close button
     const jobsCloseBtn = document.getElementById('jobsCloseBtn');
     if (jobsCloseBtn) {
       jobsCloseBtn.addEventListener('click', closeJobsModal);
@@ -1154,7 +1491,6 @@
       }
     });
 
-    // Close with Escape key
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         closeJobsModal();
@@ -1166,16 +1502,21 @@
       const student = allStudents.find(s => s.id === studentId);
       activeStudent = student;
 
+      const currentCity = (document.getElementById('citySearch').value || '').trim();
+      activeCityFilter = currentCity;
+      activeRegionFilter = 'All';
+      activeSourceFilter = 'All';
+
       const studentSkills = (student && student.skills) ? student.skills.join(', ') : '';
-      jobsModalTitle.textContent = `Jobs for ${student ? student.name : 'Student'}`;
+      jobsModalTitle.textContent = `Vacancies for ${student ? student.name : 'Student'}`;
       jobsModalSubtitle.textContent = studentSkills 
-        ? `Target Skills: ${studentSkills}` 
+        ? `Skills: ${studentSkills} ${student.location ? '• ' + student.location : ''}` 
         : 'Loading vacancies...';
 
       jobsModalBody.innerHTML = `
         <div class="loading-state">
           <div class="spinner"></div>
-          <p>Fetching real-time vacancies matching <strong>${studentSkills || 'skills'}</strong> from Naukri, LinkedIn, and Indeed...</p>
+          <p>Fetching real-time vacancies in Middle East & India for <strong>${studentSkills || 'skills'}</strong>...</p>
         </div>
       `;
 
@@ -1183,7 +1524,8 @@
 
       try {
         const skillsParam = (student && student.skills) ? encodeURIComponent(student.skills.join(',')) : '';
-        const res = await fetch(`/api/jobs?studentId=${studentId}&skills=${skillsParam}&includeLive=true&_t=${Date.now()}`);
+        const cityParam = currentCity ? `&city=${encodeURIComponent(currentCity)}` : '';
+        const res = await fetch(`/api/jobs?studentId=${studentId}&skills=${skillsParam}${cityParam}&includeLive=true&_t=${Date.now()}`);
         const json = await res.json();
 
         if (json.success) {
@@ -1199,8 +1541,13 @@
 
     async function openAllJobsModal() {
       activeStudent = null;
+      const currentCity = (document.getElementById('citySearch').value || '').trim();
+      activeCityFilter = currentCity;
+      activeRegionFilter = 'All';
+      activeSourceFilter = 'All';
+
       jobsModalTitle.textContent = `All Active Job Vacancies`;
-      jobsModalSubtitle.textContent = `Verified openings with recruiter phone & email contacts`;
+      jobsModalSubtitle.textContent = `Verified openings in India & Middle East / Abroad with recruiter contacts`;
 
       jobsModalBody.innerHTML = `
         <div class="loading-state">
@@ -1212,7 +1559,8 @@
       jobsDialog.showModal();
 
       try {
-        const res = await fetch(`/api/jobs?includeLive=true&_t=${Date.now()}`);
+        const cityParam = currentCity ? `?city=${encodeURIComponent(currentCity)}&includeLive=true` : '?includeLive=true';
+        const res = await fetch(`/api/jobs${cityParam}&_t=${Date.now()}`);
         const json = await res.json();
 
         if (json.success) {
@@ -1227,7 +1575,7 @@
     }
 
     function renderJobsContent(data) {
-      const { externalPortals, data: jobs, student, searchQuery } = data;
+      const { externalPortals, data: jobs, student } = data;
 
       // Build external portals banner
       let portalsHtml = '';
@@ -1235,7 +1583,7 @@
         portalsHtml = `
           <div class="portal-banner">
             <div class="portal-banner-title">
-              <span>🌐</span> Direct 1-Click Search on Reputed Portals:
+              <span>🌐</span> Direct 1-Click Search on Reputed Portals (Gulf, Middle East & India):
             </div>
             <div class="portal-links-flex">
               ${externalPortals.map(p => `
@@ -1250,22 +1598,48 @@
         `;
       }
 
-      // Filter bar
+      // Filter bar with City Place input + Region + Source
       const filterHtml = `
         <div class="jobs-filter-bar">
-          <div class="filter-count">
+          <div class="filter-count" id="modalFilterCount">
             Found <strong>${jobs.length}</strong> vacancies
             ${student ? `for ${student.name.split(' ')[0]}` : ''}
+            ${activeCityFilter ? `in <span class="highlight-place">${activeCityFilter}</span>` : ''}
           </div>
-          <div>
-            <select class="source-filter-select" id="sourceFilter" onchange="filterJobsBySource(this.value)">
-              <option value="All">All Portals (Naukri, Indeed, LinkedIn...)</option>
-              <option value="Naukri">Naukri.com</option>
-              <option value="LinkedIn">LinkedIn</option>
-              <option value="Indeed">Indeed</option>
-              <option value="Foundit">Foundit</option>
-              <option value="Remotive">Live Web / Remotive</option>
-            </select>
+          <div class="modal-filters-controls">
+            <div class="modal-city-search-box">
+              <span>📍</span>
+              <input
+                type="search"
+                id="modalCityInput"
+                class="modal-city-field"
+                placeholder="Filter by city (e.g. Dubai, Riyadh, Doha, Bengaluru...)"
+                value="${activeCityFilter || ''}"
+                oninput="handleModalCityFilter(this.value)"
+              >
+            </div>
+            <div class="modal-selects-row">
+              <select class="source-filter-select" id="regionFilter" onchange="handleModalRegionFilter(this.value)">
+                <option value="All">🌍 All Regions</option>
+                <option value="Middle East">✈️ Middle East / Abroad</option>
+                <option value="UAE">🇦🇪 UAE (Dubai & Abu Dhabi)</option>
+                <option value="Saudi Arabia">🇸🇦 Saudi Arabia</option>
+                <option value="Qatar">🇶🇦 Qatar</option>
+                <option value="India">🇮🇳 India</option>
+                <option value="Remote">🌐 Remote / Worldwide</option>
+              </select>
+              <select class="source-filter-select" id="sourceFilter" onchange="handleModalSourceFilter(this.value)">
+                <option value="All">All Portals</option>
+                <option value="NaukriGulf">NaukriGulf (Middle East)</option>
+                <option value="Bayt">Bayt.com (Middle East)</option>
+                <option value="GulfTalent">GulfTalent (Gulf)</option>
+                <option value="LinkedIn">LinkedIn</option>
+                <option value="Naukri">Naukri.com</option>
+                <option value="Indeed">Indeed</option>
+                <option value="Foundit">Foundit</option>
+                <option value="Remotive">Live Remotive</option>
+              </select>
+            </div>
           </div>
         </div>
       `;
@@ -1283,24 +1657,116 @@
       `;
 
       jobsModalBody.innerHTML = portalsHtml + filterHtml + jobsListHtml;
+
+      // Sync select dropdowns
+      if (activeRegionFilter && document.getElementById('regionFilter')) {
+        document.getElementById('regionFilter').value = activeRegionFilter;
+      }
+      if (activeSourceFilter && document.getElementById('sourceFilter')) {
+        document.getElementById('sourceFilter').value = activeSourceFilter;
+      }
+    }
+
+    function applyModalFilters() {
+      const container = document.getElementById('renderedJobsList');
+      const countEl = document.getElementById('modalFilterCount');
+      if (!container) return;
+
+      const city = (activeCityFilter || '').toLowerCase().trim();
+      const region = (activeRegionFilter || 'All').toLowerCase().trim();
+      const source = (activeSourceFilter || 'All').toLowerCase().trim();
+
+      const filtered = currentJobsList.filter(job => {
+        // City match
+        if (city) {
+          const loc = (job.location || '').toLowerCase();
+          const cntry = (job.country || '').toLowerCase();
+          const rgn = (job.region || '').toLowerCase();
+          const addr = (job.contact && job.contact.address ? job.contact.address : '').toLowerCase();
+
+          if (city === 'middle east' || city === 'abroad' || city === 'gulf') {
+            const isMe = rgn.includes('middle east') || cntry === 'uae' || cntry === 'saudi arabia' || cntry === 'qatar' || cntry === 'oman';
+            if (!isMe) return false;
+          } else {
+            const matchesCity = loc.includes(city) || cntry.includes(city) || rgn.includes(city) || addr.includes(city);
+            if (!matchesCity) return false;
+          }
+        }
+
+        // Region match
+        if (region !== 'all') {
+          const rgn = (job.region || '').toLowerCase();
+          const cntry = (job.country || '').toLowerCase();
+          if (region.includes('middle east') || region.includes('abroad')) {
+            if (!rgn.includes('middle east') && cntry !== 'uae' && cntry !== 'saudi arabia' && cntry !== 'qatar' && cntry !== 'oman') return false;
+          } else if (region.includes('uae')) {
+            if (cntry !== 'uae' && !loc.includes('dubai') && !loc.includes('abu dhabi')) return false;
+          } else if (region.includes('saudi')) {
+            if (cntry !== 'saudi arabia' && !loc.includes('riyadh') && !loc.includes('jeddah')) return false;
+          } else if (region.includes('qatar')) {
+            if (cntry !== 'qatar' && !loc.includes('doha')) return false;
+          } else if (region.includes('india')) {
+            if (cntry !== 'india') return false;
+          } else if (region.includes('remote')) {
+            if (!rgn.includes('remote') && !rgn.includes('worldwide')) return false;
+          }
+        }
+
+        // Source match
+        if (source !== 'all') {
+          if (!job.source.toLowerCase().includes(source)) return false;
+        }
+
+        return true;
+      });
+
+      if (countEl) {
+        countEl.innerHTML = `Found <strong>${filtered.length}</strong> vacancies ${activeStudent ? `for ${activeStudent.name.split(' ')[0]}` : ''} ${city ? `in <span class="highlight-place">${city}</span>` : ''}`;
+      }
+
+      container.innerHTML = renderJobListItems(filtered, activeStudent);
+    }
+
+    function handleModalCityFilter(val) {
+      activeCityFilter = val;
+      applyModalFilters();
+    }
+
+    function handleModalRegionFilter(val) {
+      activeRegionFilter = val;
+      applyModalFilters();
+    }
+
+    function handleModalSourceFilter(val) {
+      activeSourceFilter = val;
+      applyModalFilters();
     }
 
     function renderJobListItems(jobs, student) {
       if (!jobs || jobs.length === 0) {
-        return '<div class="empty-state">No matching vacancies found for this filter. Try checking the 1-click external portal links above!</div>';
+        return `
+          <div class="empty-state">
+            <p><strong>No matching vacancies found for this filter.</strong></p>
+            <p style="margin-top: 0.5rem; font-size: 0.85rem; color: #94a3b8;">
+              Try clearing the city search or exploring direct opportunities on <strong>NaukriGulf</strong>, <strong>Bayt</strong>, or <strong>LinkedIn</strong> via the links above!
+            </p>
+          </div>
+        `;
       }
 
       return jobs.map(job => {
         const studentName = student ? student.name : 'Candidate';
         const studentMobile = student ? student.mobile : '';
         const studentSkills = student ? student.skills.join(', ') : '';
+        const isMiddleEast = job.region === 'Middle East' || ['UAE', 'Saudi Arabia', 'Qatar', 'Oman'].includes(job.country);
+        const flag = getCountryFlag(job.country);
 
         // Mailto parameters prefilled
         const emailSubject = encodeURIComponent(`Application for ${job.title} - ${studentName}`);
         const emailBody = encodeURIComponent(
 `Dear ${job.contact.hrName || 'Hiring Manager'},
 
-I am writing to formally apply for the "${job.title}" vacancy at ${job.company}.
+I am writing to formally apply for the "${job.title}" vacancy at ${job.company} located in ${job.location}.
 
 Applicant Details:
 • Name: ${studentName}
@@ -1319,16 +1785,17 @@ ${studentMobile}`
 
         // WhatsApp message
         const waText = encodeURIComponent(
-          `Hello ${job.contact.hrName || 'HR'}, I am ${studentName}. I am interested in applying for the "${job.title}" vacancy at ${job.company}. My contact number is ${studentMobile}.`
+          `Hello ${job.contact.hrName || 'HR'}, I am ${studentName}. I am interested in applying for the "${job.title}" vacancy at ${job.company} (${job.location}). My contact number is ${studentMobile}.`
         );
         const waUrl = `https://wa.me/${(job.contact.whatsapp || '').replace(/[^0-9]/g, '')}?text=${waText}`;
 
         return `
-          <div class="job-card">
+          <div class="job-card ${isMiddleEast ? 'is-abroad' : ''}">
             <div class="job-card-top">
               <div>
                 <div class="job-badges-mobile">
                   <span class="match-badge">🔥 ${job.matchScore || 85}% Match</span>
+                  ${isMiddleEast ? `<span class="abroad-badge">✈️ Middle East / Abroad</span>` : ''}
                   <span class="source-tag ${getSourceClass(job.source)}">${job.source}</span>
                 </div>
                 <div class="job-role-info">
@@ -1341,11 +1808,18 @@ ${studentMobile}`
             </div>
 
             <div class="job-meta-row">
-              <span class="job-meta-item">📍 ${job.location}</span>
+              <span class="job-meta-item location-highlight">${flag} ${job.location}</span>
               <span class="job-meta-item">💼 ${job.type}</span>
               <span class="job-meta-item">⏳ ${job.experience}</span>
-              <span class="job-meta-item" style="color: #38bdf8; font-weight: 700;">💰 ${job.salary}</span>
+              <span class="job-meta-item" style="color: #fbbf24; font-weight: 700;">💰 ${job.salary}</span>
             </div>
+
+            ${job.visaInfo ? `
+              <div class="visa-benefit-banner">
+                <span>🛂</span>
+                <span><strong>Visa & Package:</strong> ${job.visaInfo}</span>
+              </div>
+            ` : ''}
 
             <p class="job-desc">${job.description}</p>
 
@@ -1409,23 +1883,13 @@ ${studentMobile}`
       }).join('');
     }
 
-    function filterJobsBySource(selectedSource) {
-      const container = document.getElementById('renderedJobsList');
-      if (!container) return;
-
-      let filtered = currentJobsList;
-      if (selectedSource && selectedSource !== 'All') {
-        filtered = currentJobsList.filter(j => j.source.toLowerCase().includes(selectedSource.toLowerCase()));
-      }
-      container.innerHTML = renderJobListItems(filtered, activeStudent);
-    }
-
     // Modal Handling for Editing Student
     const editDialog = document.getElementById('editDialog');
     const editForm = document.getElementById('editForm');
     const editId = document.getElementById('editId');
     const editName = document.getElementById('editName');
     const editMobile = document.getElementById('editMobile');
+    const editLocation = document.getElementById('editLocation');
     const editSkills = document.getElementById('editSkills');
 
     function openEditModal(id) {
@@ -1435,6 +1899,7 @@ ${studentMobile}`
       editId.value = student.id;
       editName.value = student.name;
       editMobile.value = student.mobile;
+      editLocation.value = student.location || '';
       editSkills.value = student.skills.join(', ');
       document.getElementById('editDialogTitle').textContent = `Edit #${student.id}: ${student.name.split(' ')[0]}`;
       editDialog.showModal();
@@ -1461,6 +1926,7 @@ ${studentMobile}`
       const updatedPayload = {
         name: editName.value,
         mobile: editMobile.value,
+        location: editLocation.value,
         skills: editSkills.value.split(',').map(s => s.trim()).filter(Boolean)
       };
 
@@ -1476,7 +1942,7 @@ ${studentMobile}`
           if (idx !== -1) {
             allStudents[idx] = result.data;
           }
-          renderStudents(allStudents);
+          filterStudentsList();
           editDialog.close();
         } else {
           alert('Update failed: ' + result.message);
@@ -1486,16 +1952,46 @@ ${studentMobile}`
       }
     });
 
-    // Search filter for students
-    document.getElementById('search').addEventListener('input', (e) => {
-      const query = e.target.value.toLowerCase().trim();
-      const filtered = allStudents.filter(student => {
-        const matchName = student.name.toLowerCase().includes(query);
-        const matchSkill = student.skills.some(skill => skill.toLowerCase().includes(query));
-        return matchName || matchSkill;
-      });
-      renderStudents(filtered);
+    // Main Page Search Handlers
+    document.getElementById('search').addEventListener('input', filterStudentsList);
+
+    const citySearchInput = document.getElementById('citySearch');
+    const clearCityBtn = document.getElementById('clearCityBtn');
+
+    citySearchInput.addEventListener('input', (e) => {
+      const val = e.target.value.trim();
+      clearCityBtn.style.display = val ? 'flex' : 'none';
+      updateChipActiveState(val);
+      filterStudentsList();
     });
+
+    function clearCitySearch() {
+      citySearchInput.value = '';
+      clearCityBtn.style.display = 'none';
+      updateChipActiveState('');
+      filterStudentsList();
+    }
+
+    function selectLocationChip(location) {
+      citySearchInput.value = location;
+      clearCityBtn.style.display = location ? 'flex' : 'none';
+      updateChipActiveState(location);
+      filterStudentsList();
+    }
+
+    function updateChipActiveState(location) {
+      const locClean = (location || '').toLowerCase();
+      document.querySelectorAll('.loc-chip').forEach(chip => {
+        const chipLoc = (chip.getAttribute('data-loc') || '').toLowerCase();
+        if (!locClean && !chipLoc) {
+          chip.classList.add('active');
+        } else if (locClean && chipLoc && locClean.includes(chipLoc)) {
+          chip.classList.add('active');
+        } else {
+          chip.classList.remove('active');
+        }
+      });
+    }
 
     // Initial load
     loadStudents();

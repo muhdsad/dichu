@@ -18,46 +18,68 @@ app.use(express.json());
 // Serve static frontend files from 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Dummy data for 5 students
+// Student placement directory with preferred locations (India & Abroad/Middle East)
 const students = [
   {
     id: 1,
     name: 'Aarav Sharma',
     mobile: '+91 98765 43210',
+    location: 'Bengaluru, India (Open to Dubai & Abroad)',
     skills: ['JavaScript', 'React', 'Node.js', 'MongoDB']
   },
   {
     id: 2,
     name: 'Priya Patel',
     mobile: '+91 98123 45678',
+    location: 'Mumbai, India (Open to UAE & Middle East)',
     skills: ['Python', 'Django', 'Machine Learning', 'SQL']
   },
   {
     id: 3,
     name: 'Dilshad Muannad',
     mobile: '+91 70123 13570',
+    location: 'Calicut, Kerala (Seeking Dubai, UAE & Saudi Arabia)',
     skills: ['iPhone Technician', 'Hardware Repair', 'iOS Diagnostics', 'Screen Replacement']
   },
   {
     id: 4,
     name: 'Ananya Iyer',
     mobile: '+91 97654 32109',
+    location: 'Mumbai, Maharashtra (Open to Dubai, Doha & Abroad)',
     skills: ['Supermarket Supervisor', 'Inventory Management', 'Team Leadership', 'Customer Relations']
   },
   {
     id: 5,
     name: 'Vikram Singh',
     mobile: '+91 98234 56789',
+    location: 'Delhi-NCR, India (Open to UAE & Worldwide Remote)',
     skills: ['Go', 'Kubernetes', 'AWS', 'DevOps']
   }
 ];
 
-// GET all students
+// GET all students (supports query search by name, skill, or location/city)
 app.get('/api/students', (req, res) => {
+  const { query, city } = req.query;
+  let result = [...students];
+
+  if (query) {
+    const q = query.toLowerCase().trim();
+    result = result.filter(s =>
+      s.name.toLowerCase().includes(q) ||
+      (s.location && s.location.toLowerCase().includes(q)) ||
+      s.skills.some(sk => sk.toLowerCase().includes(q))
+    );
+  }
+
+  if (city) {
+    const c = city.toLowerCase().trim();
+    result = result.filter(s => s.location && s.location.toLowerCase().includes(c));
+  }
+
   res.json({
     success: true,
-    total: students.length,
-    data: students
+    total: result.length,
+    data: result
   });
 });
 
@@ -79,7 +101,7 @@ app.get('/api/students/:id', (req, res) => {
   });
 });
 
-// PUT update student name, mobile, and skills
+// PUT update student name, mobile, location, and skills
 app.put('/api/students/:id', (req, res) => {
   const studentId = parseInt(req.params.id, 10);
   const student = students.find((s) => s.id === studentId);
@@ -91,10 +113,11 @@ app.put('/api/students/:id', (req, res) => {
     });
   }
 
-  const { name, mobile, skills } = req.body;
+  const { name, mobile, location, skills } = req.body;
 
   if (name !== undefined) student.name = String(name).trim();
   if (mobile !== undefined) student.mobile = String(mobile).trim();
+  if (location !== undefined) student.location = String(location).trim();
   if (skills !== undefined) {
     student.skills = Array.isArray(skills)
       ? skills.map(s => String(s).trim()).filter(Boolean)
@@ -108,15 +131,16 @@ app.put('/api/students/:id', (req, res) => {
   });
 });
 
-// GET Job Vacancies with matching by studentId or keyword
+// GET Job Vacancies with matching by studentId, keyword, city/location, and source
 app.get('/api/jobs', async (req, res) => {
   try {
-    // Prevent browser or proxy caching so skill changes reflect immediately
+    // Prevent browser or proxy caching so skill and location changes reflect immediately
     res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
     res.set('Pragma', 'no-cache');
     res.set('Expires', '0');
 
-    const { studentId, query, source, includeLive } = req.query;
+    const { studentId, query, source, city, location, region, includeLive } = req.query;
+    const targetCity = (city || location || '').trim().toLowerCase();
 
     let targetSkills = [];
     let student = null;
@@ -143,10 +167,10 @@ app.get('/api/jobs', async (req, res) => {
     let scoredJobs = [];
 
     if (targetSkills.length > 0) {
-      // 1. Match from pre-loaded public vacancies
+      // 1. Match from pre-loaded public vacancies (including India, Middle East & Abroad)
       scoredJobs = publicVacancies
         .map(job => {
-          const match = calculateJobMatch(job, targetSkills);
+          const match = calculateJobMatch(job, targetSkills, targetCity);
           return {
             ...job,
             matchScore: match.score,
@@ -157,10 +181,10 @@ app.get('/api/jobs', async (req, res) => {
 
       // 2. Fetch live web vacancies matching search query
       if (includeLive === 'true' || searchQuery) {
-        const live = await fetchLivePublicJobs(searchQuery);
+        const live = await fetchLivePublicJobs(searchQuery, targetCity);
         if (live && live.length > 0) {
           const scoredLive = live.map(job => {
-            const match = calculateJobMatch(job, targetSkills);
+            const match = calculateJobMatch(job, targetSkills, targetCity);
             return {
               ...job,
               matchScore: Math.max(75, match.score),
@@ -173,7 +197,7 @@ app.get('/api/jobs', async (req, res) => {
 
       // 3. If matching vacancies are few (or custom skills entered), generate verified dynamic vacancies for the exact skills
       if (scoredJobs.length < 4) {
-        const dynamicJobs = generateDynamicVacanciesForSkills(targetSkills, student ? student.name : '');
+        const dynamicJobs = generateDynamicVacanciesForSkills(targetSkills, student ? student.name : '', targetCity);
         scoredJobs = [...scoredJobs, ...dynamicJobs];
       }
     } else {
@@ -183,6 +207,40 @@ app.get('/api/jobs', async (req, res) => {
         matchScore: 85,
         matchedSkills: j.skills.slice(0, 2)
       }));
+    }
+
+    // Filter by city / place if specified
+    if (targetCity) {
+      scoredJobs = scoredJobs.filter(j => {
+        const loc = (j.location || '').toLowerCase();
+        const cntry = (j.country || '').toLowerCase();
+        const rgn = (j.region || '').toLowerCase();
+        const addr = (j.contact && j.contact.address ? j.contact.address : '').toLowerCase();
+
+        if (targetCity === 'middle east' || targetCity === 'abroad' || targetCity === 'gulf') {
+          return rgn.includes('middle east') || cntry === 'uae' || cntry === 'saudi arabia' || cntry === 'qatar' || cntry === 'oman';
+        }
+        return loc.includes(targetCity) || cntry.includes(targetCity) || rgn.includes(targetCity) || addr.includes(targetCity);
+      });
+    }
+
+    // Filter by region if specified
+    if (region && region !== 'All') {
+      const r = region.toLowerCase();
+      scoredJobs = scoredJobs.filter(j => {
+        const rgn = (j.region || '').toLowerCase();
+        const cntry = (j.country || '').toLowerCase();
+        if (r.includes('middle east') || r.includes('gulf') || r.includes('abroad')) {
+          return rgn.includes('middle east') || cntry === 'uae' || cntry === 'saudi arabia' || cntry === 'qatar' || cntry === 'oman';
+        }
+        if (r.includes('india')) {
+          return rgn.includes('india') || cntry === 'india';
+        }
+        if (r.includes('remote')) {
+          return rgn.includes('remote') || rgn.includes('worldwide');
+        }
+        return rgn.includes(r) || cntry.includes(r);
+      });
     }
 
     // Filter by source portal if specified
@@ -202,13 +260,14 @@ app.get('/api/jobs', async (req, res) => {
     // Sort by matchScore descending, then by recency
     scoredJobs.sort((a, b) => (b.matchScore || 0) - (a.matchScore || 0));
 
-    // Reputed external portals deep links tailored strictly to targetSkills
-    const externalPortals = generateExternalPortals(searchQuery, student);
+    // Reputed external portals deep links tailored strictly to targetSkills and city
+    const externalPortals = generateExternalPortals(searchQuery, student, targetCity);
 
     res.json({
       success: true,
       student: student || null,
       searchQuery: searchQuery,
+      cityFilter: targetCity || null,
       targetSkills: targetSkills,
       total: scoredJobs.length,
       externalPortals,
