@@ -1,0 +1,1469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0b1120">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Student Placement & Job Vacancy Hub</title>
+  <style>
+    :root {
+      --bg: #0b1120;
+      --card-bg: #1e293b;
+      --card-inner: #0f172a;
+      --card-border: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #38bdf8;
+      --accent: #818cf8;
+      --skill-bg: #0284c7;
+      --skill-text: #e0f2fe;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --tap-target-min: 44px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Mobile First Base Body */
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      min-block-size: 100dvh;
+      /* Safe area insets for notches & home bars on iOS and modern Android */
+      padding-block-start: max(1rem, env(safe-area-inset-top));
+      padding-block-end: max(2rem, env(safe-area-inset-bottom));
+      padding-inline: max(0.85rem, env(safe-area-inset-left));
+      padding-inline-end: max(0.85rem, env(safe-area-inset-right));
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    .container {
+      inline-size: 100%;
+      max-inline-size: 1200px;
+      margin-inline: auto;
+    }
+
+    /* Mobile First Header */
+    header {
+      margin-block-end: 1.5rem;
+      text-align: center;
+      padding-inline: 0.25rem;
+    }
+
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: var(--primary);
+      padding: 0.35rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-block-end: 0.65rem;
+    }
+
+    header h1 {
+      /* Fluid typography: scales gracefully between 320px and 1200px */
+      font-size: clamp(1.65rem, 1.3rem + 2.4vw, 2.4rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-block-end: 0.5rem;
+      line-height: 1.25;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: clamp(0.9rem, 0.85rem + 0.35vw, 1.05rem);
+      max-inline-size: 680px;
+      margin-inline: auto;
+      line-height: 1.45;
+    }
+
+    /* Mobile First Controls (Stacked by default, rows on tablet+) */
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin-block-end: 1.5rem;
+      background: rgba(30, 41, 59, 0.6);
+      padding: 0.9rem;
+      border-radius: 14px;
+      border: 1px solid var(--card-border);
+    }
+
+    .search-input {
+      inline-size: 100%;
+      min-block-size: var(--tap-target-min);
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      border: 1px solid var(--card-border);
+      background: var(--card-inner);
+      color: var(--text-main);
+      font-size: 1rem; /* 16px to prevent auto-zoom in iOS Safari */
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+    }
+
+    .action-links {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.6rem;
+      inline-size: 100%;
+    }
+
+    .btn-browse-all {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      min-block-size: var(--tap-target-min);
+      background: linear-gradient(135deg, #0284c7, #4f46e5);
+      color: #ffffff;
+      border: none;
+      padding: 0.65rem 1rem;
+      border-radius: 10px;
+      font-size: 0.925rem;
+      font-weight: 700;
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: opacity 0.2s;
+    }
+
+    .btn-browse-all:hover, .btn-browse-all:active {
+      opacity: 0.92;
+    }
+
+    .api-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      min-block-size: var(--tap-target-min);
+      background: #1e1b4b;
+      color: #a5b4fc;
+      border: 1px solid #4338ca;
+      padding: 0.55rem 0.85rem;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      touch-action: manipulation;
+    }
+
+    .api-badge:hover, .api-badge:active {
+      background: #312e81;
+      color: #ffffff;
+    }
+
+    /* Grid: 1 column on mobile, responsive cards on larger screens */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.15rem;
+    }
+
+    /* Student Card */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 1.15rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      position: relative;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-inline-size: 0;
+    }
+
+    .avatar {
+      inline-size: 44px;
+      block-size: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0284c7, #818cf8);
+      display: flex;
+      place-content: center;
+      place-items: center;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: #ffffff;
+      flex-shrink: 0;
+      box-shadow: 0 4px 10px rgba(2, 132, 199, 0.3);
+    }
+
+    .card-title {
+      min-inline-size: 0;
+    }
+
+    .card-title h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #ffffff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .student-id {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .edit-btn {
+      background: rgba(51, 65, 85, 0.8);
+      color: #cbd5e1;
+      border: 1px solid #475569;
+      min-block-size: 36px;
+      padding: 0.4rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+
+    .edit-btn:hover, .edit-btn:active {
+      background: var(--primary);
+      color: #0f172a;
+      border-color: var(--primary);
+    }
+
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      background: rgba(15, 23, 42, 0.5);
+      padding: 0.6rem 0.85rem;
+      border-radius: 10px;
+      min-block-size: 42px;
+    }
+
+    .contact-row a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      word-break: break-all;
+    }
+
+    .skills-heading {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      list-style: none;
+      margin-block-start: 0.45rem;
+    }
+
+    .skill-tag {
+      background: rgba(2, 132, 199, 0.16);
+      color: #7dd3fc;
+      border: 1px solid rgba(2, 132, 199, 0.35);
+      padding: 0.3rem 0.65rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    /* Card Action (Find Vacancies) */
+    .card-actions {
+      margin-block-start: auto;
+      padding-block-start: 0.5rem;
+      border-block-start: 1px solid rgba(51, 65, 85, 0.6);
+    }
+
+    .btn-find-jobs {
+      inline-size: 100%;
+      min-block-size: var(--tap-target-min);
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #ffffff;
+      border: none;
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      touch-action: manipulation;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+      transition: all 0.2s;
+    }
+
+    .btn-find-jobs:hover, .btn-find-jobs:active {
+      background: linear-gradient(135deg, #0369a1 0%, #1d4ed8 100%);
+      transform: translateY(-1px);
+    }
+
+    .btn-find-jobs .badge-tag {
+      background: rgba(255, 255, 255, 0.22);
+      font-size: 0.7rem;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 2.5rem 1rem;
+      color: var(--text-muted);
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px dashed var(--card-border);
+    }
+
+    /* Mobile First Modal & Bottom-Sheet Behavior */
+    dialog {
+      margin: auto;
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      background: #1e293b;
+      color: var(--text-main);
+      padding: 1.5rem;
+      inline-size: min(94vw, 440px);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+      overscroll-behavior: contain;
+    }
+
+    dialog::backdrop {
+      background: rgba(11, 17, 32, 0.85);
+      backdrop-filter: blur(8px);
+    }
+
+    /* Job Vacancy Dialog: On Mobile it acts as a Native-like Bottom Sheet */
+    dialog#jobsDialog {
+      inline-size: 100%;
+      max-inline-size: 100%;
+      block-size: 92dvh;
+      max-block-size: 92dvh;
+      margin-block-start: auto;
+      margin-block-end: 0;
+      margin-inline: 0;
+      border-radius: 20px 20px 0 0;
+      border-bottom: none;
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    dialog#jobsDialog[open] {
+      display: flex;
+    }
+
+    /* Touch Sheet Drag Handle */
+    .sheet-handle-bar {
+      display: block;
+      inline-size: 38px;
+      block-size: 4px;
+      background: #475569;
+      border-radius: 9999px;
+      margin: 0.5rem auto 0.25rem;
+    }
+
+    .jobs-modal-header {
+      background: #0f172a;
+      border-block-end: 1px solid var(--card-border);
+      padding: 0.85rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.75rem;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .modal-close-btn {
+      background: #334155;
+      border: none;
+      color: #cbd5e1;
+      inline-size: 36px;
+      block-size: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      touch-action: manipulation;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+
+    .modal-close-btn:hover, .modal-close-btn:active {
+      background: #ef4444;
+      color: #ffffff;
+    }
+
+    .jobs-modal-body {
+      padding: 1rem 0.9rem;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      flex: 1;
+    }
+
+    /* Portal Quick Search Bar (Mobile horizontal swipe scroll) */
+    .portal-banner {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 0.85rem;
+    }
+
+    .portal-banner-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #94a3b8;
+      margin-block-end: 0.65rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .portal-links-flex {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      gap: 0.5rem;
+      padding-block-end: 0.35rem;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+    }
+
+    .portal-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      min-block-size: 38px;
+      padding: 0.45rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: #ffffff;
+      white-space: nowrap;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      flex-shrink: 0;
+      touch-action: manipulation;
+    }
+
+    .portal-link-btn:active {
+      transform: scale(0.97);
+    }
+
+    /* Filters Bar */
+    .jobs-filter-bar {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      background: rgba(15, 23, 42, 0.5);
+      padding: 0.75rem;
+      border-radius: 10px;
+    }
+
+    .filter-count {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #38bdf8;
+    }
+
+    .source-filter-select {
+      inline-size: 100%;
+      min-block-size: var(--tap-target-min);
+      background: #0f172a;
+      border: 1px solid var(--card-border);
+      color: #f8fafc;
+      padding: 0.55rem 0.85rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    /* Job Card inside listing */
+    .job-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .job-card {
+      background: #0f172a;
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .job-card-top {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .job-badges-mobile {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      margin-block-end: 0.2rem;
+    }
+
+    .job-role-info h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.35;
+    }
+
+    .job-company {
+      font-size: 0.9rem;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-weight: 500;
+    }
+
+    .match-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      background: rgba(16, 185, 129, 0.18);
+      border: 1px solid rgba(16, 185, 129, 0.45);
+      color: #34d399;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 0.2rem 0.5rem;
+      border-radius: 9999px;
+    }
+
+    .source-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.5rem;
+      border-radius: 6px;
+      color: #ffffff;
+    }
+
+    .source-naukri { background: #005bbb; }
+    .source-linkedin { background: #0a66c2; }
+    .source-indeed { background: #2557a7; }
+    .source-foundit { background: #6c5ce7; }
+    .source-remotive { background: #10b981; }
+    .source-default { background: #475569; }
+
+    .job-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 0.85rem;
+      font-size: 0.825rem;
+      color: #cbd5e1;
+    }
+
+    .job-meta-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .job-desc {
+      font-size: 0.875rem;
+      color: #94a3b8;
+      line-height: 1.45;
+    }
+
+    /* Recruiter Contact Box */
+    .hr-contact-box {
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .hr-contact-title {
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #38bdf8;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .hr-details-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      font-size: 0.875rem;
+    }
+
+    .hr-detail-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #cbd5e1;
+      word-break: break-all;
+    }
+
+    .hr-detail-item a {
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: 600;
+      min-block-size: 28px;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    /* Mobile First Job Actions Row */
+    .job-actions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.55rem;
+      margin-block-start: 0.35rem;
+    }
+
+    .btn-apply-email {
+      grid-column: span 2;
+      min-block-size: var(--tap-target-min);
+      background: linear-gradient(135deg, #059669, #10b981);
+      color: #ffffff;
+      padding: 0.65rem 0.95rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      touch-action: manipulation;
+    }
+
+    .btn-apply-wa {
+      min-block-size: var(--tap-target-min);
+      background: #25d366;
+      color: #0b1120;
+      padding: 0.55rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      touch-action: manipulation;
+    }
+
+    .btn-call-recruiter {
+      min-block-size: var(--tap-target-min);
+      background: #334155;
+      color: #f8fafc;
+      border: 1px solid #475569;
+      padding: 0.55rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      touch-action: manipulation;
+    }
+
+    .btn-view-portal {
+      grid-column: span 2;
+      min-block-size: var(--tap-target-min);
+      background: #1e293b;
+      color: #cbd5e1;
+      border: 1px solid #475569;
+      padding: 0.55rem 0.85rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      touch-action: manipulation;
+    }
+
+    /* Edit Dialog Modal for Mobile (Bottom sheet on mobile) */
+    dialog#editDialog {
+      inline-size: 100%;
+      max-inline-size: 100%;
+      margin-block-start: auto;
+      margin-block-end: 0;
+      border-radius: 20px 20px 0 0;
+      border-bottom: none;
+    }
+
+    .form-group {
+      margin-block-end: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-group label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .form-group input {
+      min-block-size: var(--tap-target-min);
+      padding: 0.65rem 0.85rem;
+      border-radius: 8px;
+      border: 1px solid var(--card-border);
+      background: #0f172a;
+      color: #f8fafc;
+      font-size: 1rem; /* 16px prevents iOS Safari zoom */
+      outline: none;
+    }
+
+    .form-group input:focus {
+      border-color: var(--primary);
+    }
+
+    .modal-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-block-start: 1.25rem;
+    }
+
+    .btn {
+      min-block-size: var(--tap-target-min);
+      padding: 0.65rem 1rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      touch-action: manipulation;
+    }
+
+    .btn-secondary {
+      background: #334155;
+      color: #f8fafc;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #0f172a;
+    }
+
+    /* Loading Spinner */
+    .loading-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: #94a3b8;
+    }
+
+    .spinner {
+      inline-size: 44px;
+      block-size: 44px;
+      border: 3.5px solid rgba(56, 189, 248, 0.2);
+      border-top-color: #38bdf8;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 1rem;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ========================================================= */
+    /* PROGRESSIVE ENHANCEMENT FOR TABLETS & DESKTOPS (640px+)  */
+    /* ========================================================= */
+    @media (min-width: 640px) {
+      body {
+        padding-block: 2rem 3rem;
+        padding-inline: 1.5rem;
+      }
+
+      .controls {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .search-input {
+        max-inline-size: 380px;
+      }
+
+      .action-links {
+        display: flex;
+        inline-size: auto;
+      }
+
+      .grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.4rem;
+      }
+
+      .card {
+        padding: 1.35rem;
+      }
+
+      /* Desktop / Tablet Modal Dialog */
+      dialog#jobsDialog {
+        inline-size: min(94vw, 920px);
+        max-inline-size: 920px;
+        block-size: auto;
+        max-block-size: 88dvh;
+        margin: auto;
+        border-radius: 16px;
+        border-bottom: 1px solid var(--card-border);
+      }
+
+      .sheet-handle-bar {
+        display: none;
+      }
+
+      .jobs-modal-header {
+        padding: 1.25rem 1.5rem;
+      }
+
+      .jobs-modal-body {
+        padding: 1.25rem 1.5rem;
+        gap: 1.25rem;
+      }
+
+      .portal-links-flex {
+        flex-wrap: wrap;
+        overflow-x: visible;
+      }
+
+      .jobs-filter-bar {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .source-filter-select {
+        inline-size: auto;
+      }
+
+      .job-card {
+        padding: 1.25rem;
+      }
+
+      .job-card-top {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+
+      .hr-details-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+
+      .job-actions-grid {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .btn-apply-email {
+        grid-column: auto;
+      }
+
+      .btn-view-portal {
+        grid-column: auto;
+        margin-inline-start: auto;
+      }
+
+      dialog#editDialog {
+        inline-size: min(90vw, 440px);
+        max-inline-size: 440px;
+        margin: auto;
+        border-radius: 14px;
+        border-bottom: 1px solid var(--card-border);
+      }
+
+      .modal-actions {
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .grid {
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+        gap: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand-badge">⚡ Real-Time Placement Engine</div>
+      <h1>Student Directory & Job Vacancy Hub</h1>
+      <p>Instant job vacancies from Naukri, LinkedIn, and Indeed matched to each student's specific skills with direct recruiter contact details.</p>
+    </header>
+
+    <div class="controls">
+      <input
+        type="search"
+        id="search"
+        class="search-input"
+        placeholder="🔍 Search student or skill..."
+        aria-label="Search students"
+      >
+      <div class="action-links">
+        <button class="btn-browse-all" onclick="openAllJobsModal()">
+          <span>💼 Browse All Vacancies</span>
+        </button>
+        <a href="/api/students" target="_blank" class="api-badge" title="Open JSON API">
+          <span>⚡ Students API</span>
+        </a>
+        <a href="/api/jobs" target="_blank" class="api-badge" title="Open Jobs JSON API">
+          <span>💼 Jobs API</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Students Grid -->
+    <div class="grid" id="studentsGrid">
+      <!-- Cards rendered dynamically -->
+    </div>
+  </div>
+
+  <!-- Job Vacancies Modal (Mobile Bottom-Sheet) -->
+  <dialog id="jobsDialog">
+    <div class="sheet-handle-bar" aria-hidden="true"></div>
+    <div class="jobs-modal-header">
+      <div>
+        <h3 id="jobsModalTitle" style="font-size: 1.25rem; color: #38bdf8; margin-bottom: 0.2rem;">Job Vacancies</h3>
+        <p id="jobsModalSubtitle" style="font-size: 0.85rem; color: #94a3b8;">Public listings with direct recruiter contact info</p>
+      </div>
+      <button class="modal-close-btn" onclick="closeJobsModal()" title="Close">&times;</button>
+    </div>
+
+    <div class="jobs-modal-body" id="jobsModalBody">
+      <!-- Dynamically filled: Portals bar, filter, and job list -->
+    </div>
+  </dialog>
+
+  <!-- Edit Student Dialog Modal (Mobile Bottom-Sheet) -->
+  <dialog id="editDialog">
+    <div class="sheet-handle-bar" aria-hidden="true"></div>
+    <form id="editForm" method="dialog">
+      <h3 id="editDialogTitle" style="color: var(--primary); margin-bottom: 1rem; font-size: 1.2rem;">Edit Student</h3>
+      <input type="hidden" id="editId">
+
+      <div class="form-group">
+        <label for="editName">Student Name</label>
+        <input type="text" id="editName" required placeholder="e.g. Dilshad Muannad">
+      </div>
+
+      <div class="form-group">
+        <label for="editMobile">Mobile Number</label>
+        <input type="tel" id="editMobile" required placeholder="e.g. +91 70123 13570">
+      </div>
+
+      <div class="form-group">
+        <label for="editSkills">Skills (comma-separated)</label>
+        <input type="text" id="editSkills" required placeholder="e.g. iPhone Technician, Hardware Repair">
+        <small style="color: #64748b; font-size: 0.75rem;">Separate multiple skills with a comma ( , )</small>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn btn-secondary" onclick="closeEditModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script>
+    let allStudents = [];
+    let currentJobsList = [];
+    let activeStudent = null;
+
+    function getInitials(name) {
+      return (name || '')
+        .split(' ')
+        .map(word => word[0])
+        .join('')
+        .slice(0, 2)
+        .toUpperCase();
+    }
+
+    function getSourceClass(source) {
+      const s = (source || '').toLowerCase();
+      if (s.includes('naukri')) return 'source-naukri';
+      if (s.includes('linkedin')) return 'source-linkedin';
+      if (s.includes('indeed')) return 'source-indeed';
+      if (s.includes('foundit') || s.includes('monster')) return 'source-foundit';
+      if (s.includes('remotive') || s.includes('live')) return 'source-remotive';
+      return 'source-default';
+    }
+
+    function renderStudents(students) {
+      const grid = document.getElementById('studentsGrid');
+
+      if (!students || students.length === 0) {
+        grid.innerHTML = '<div class="empty-state">No students found matching your search.</div>';
+        return;
+      }
+
+      grid.innerHTML = students.map(student => `
+        <article class="card">
+          <div class="card-header">
+            <div class="user-info">
+              <div class="avatar">${getInitials(student.name)}</div>
+              <div class="card-title">
+                <h2>${student.name}</h2>
+                <span class="student-id">Student ID: #${student.id}</span>
+              </div>
+            </div>
+            <button class="edit-btn" onclick="openEditModal(${student.id})" title="Edit Details">✏️ Edit</button>
+          </div>
+
+          <div class="contact-row">
+            <span>📱</span>
+            <a href="tel:${student.mobile.replace(/\\s+/g, '')}">${student.mobile}</a>
+          </div>
+
+          <div>
+            <div class="skills-heading">Skills & Specializations</div>
+            <ul class="skills-list">
+              ${student.skills.map(skill => `<li class="skill-tag">${skill}</li>`).join('')}
+            </ul>
+          </div>
+
+          <div class="card-actions">
+            <button class="btn-find-jobs" onclick="fetchJobsForStudent(${student.id})">
+              <span>💼 Find Vacancies for ${student.name.split(' ')[0]}</span>
+              <span class="badge-tag">Naukri & More</span>
+            </button>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    async function loadStudents() {
+      try {
+        const response = await fetch('/api/students');
+        const json = await response.json();
+        if (json.success) {
+          allStudents = json.data;
+          renderStudents(allStudents);
+        }
+      } catch (err) {
+        console.error('Failed to load students:', err);
+        document.getElementById('studentsGrid').innerHTML =
+          '<div class="empty-state">Failed to load student data. Ensure the server is running.</div>';
+      }
+    }
+
+    // Modal Handling for Jobs
+    const jobsDialog = document.getElementById('jobsDialog');
+    const jobsModalTitle = document.getElementById('jobsModalTitle');
+    const jobsModalSubtitle = document.getElementById('jobsModalSubtitle');
+    const jobsModalBody = document.getElementById('jobsModalBody');
+
+    function closeJobsModal() {
+      jobsDialog.close();
+    }
+
+    jobsDialog.addEventListener('click', (e) => {
+      if (e.target === jobsDialog) {
+        jobsDialog.close();
+      }
+    });
+
+    async function fetchJobsForStudent(studentId) {
+      const student = allStudents.find(s => s.id === studentId);
+      activeStudent = student;
+
+      jobsModalTitle.textContent = `Jobs for ${student ? student.name : 'Student'}`;
+      jobsModalSubtitle.textContent = student 
+        ? `Skills: ${student.skills.join(', ')}` 
+        : 'Loading vacancies...';
+
+      jobsModalBody.innerHTML = `
+        <div class="loading-state">
+          <div class="spinner"></div>
+          <p>Fetching public job vacancies from <strong>Naukri</strong>, <strong>LinkedIn</strong>, and <strong>Indeed</strong>...</p>
+        </div>
+      `;
+
+      jobsDialog.showModal();
+
+      try {
+        const res = await fetch(`/api/jobs?studentId=${studentId}&includeLive=true`);
+        const json = await res.json();
+
+        if (json.success) {
+          currentJobsList = json.data || [];
+          renderJobsContent(json);
+        } else {
+          jobsModalBody.innerHTML = `<div class="empty-state">Failed to fetch jobs: ${json.message}</div>`;
+        }
+      } catch (err) {
+        jobsModalBody.innerHTML = `<div class="empty-state">Error contacting server: ${err.message}</div>`;
+      }
+    }
+
+    async function openAllJobsModal() {
+      activeStudent = null;
+      jobsModalTitle.textContent = `All Active Job Vacancies`;
+      jobsModalSubtitle.textContent = `Verified openings with recruiter phone & email contacts`;
+
+      jobsModalBody.innerHTML = `
+        <div class="loading-state">
+          <div class="spinner"></div>
+          <p>Loading all public job vacancies...</p>
+        </div>
+      `;
+
+      jobsDialog.showModal();
+
+      try {
+        const res = await fetch(`/api/jobs?includeLive=true`);
+        const json = await res.json();
+
+        if (json.success) {
+          currentJobsList = json.data || [];
+          renderJobsContent(json);
+        } else {
+          jobsModalBody.innerHTML = `<div class="empty-state">Failed to fetch jobs: ${json.message}</div>`;
+        }
+      } catch (err) {
+        jobsModalBody.innerHTML = `<div class="empty-state">Error contacting server: ${err.message}</div>`;
+      }
+    }
+
+    function renderJobsContent(data) {
+      const { externalPortals, data: jobs, student, searchQuery } = data;
+
+      // Build external portals banner
+      let portalsHtml = '';
+      if (externalPortals && externalPortals.length > 0) {
+        portalsHtml = `
+          <div class="portal-banner">
+            <div class="portal-banner-title">
+              <span>🌐</span> Direct 1-Click Search on Reputed Portals:
+            </div>
+            <div class="portal-links-flex">
+              ${externalPortals.map(p => `
+                <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="portal-link-btn" style="background-color: ${p.color};">
+                  <span>${p.icon}</span>
+                  <span>${p.name}</span>
+                  <span style="opacity: 0.8; font-size: 0.75rem;">↗</span>
+                </a>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      // Filter bar
+      const filterHtml = `
+        <div class="jobs-filter-bar">
+          <div class="filter-count">
+            Found <strong>${jobs.length}</strong> vacancies
+            ${student ? `for ${student.name.split(' ')[0]}` : ''}
+          </div>
+          <div>
+            <select class="source-filter-select" id="sourceFilter" onchange="filterJobsBySource(this.value)">
+              <option value="All">All Portals (Naukri, Indeed, LinkedIn...)</option>
+              <option value="Naukri">Naukri.com</option>
+              <option value="LinkedIn">LinkedIn</option>
+              <option value="Indeed">Indeed</option>
+              <option value="Foundit">Foundit</option>
+              <option value="Remotive">Live Web / Remotive</option>
+            </select>
+          </div>
+        </div>
+      `;
+
+      // Jobs list
+      const jobsListHtml = `
+        <div class="job-list" id="renderedJobsList">
+          ${renderJobListItems(jobs, student)}
+        </div>
+      `;
+
+      jobsModalBody.innerHTML = portalsHtml + filterHtml + jobsListHtml;
+    }
+
+    function renderJobListItems(jobs, student) {
+      if (!jobs || jobs.length === 0) {
+        return '<div class="empty-state">No matching vacancies found for this filter. Try checking the 1-click external portal links above!</div>';
+      }
+
+      return jobs.map(job => {
+        const studentName = student ? student.name : 'Candidate';
+        const studentMobile = student ? student.mobile : '';
+        const studentSkills = student ? student.skills.join(', ') : '';
+
+        // Mailto parameters prefilled
+        const emailSubject = encodeURIComponent(`Application for ${job.title} - ${studentName}`);
+        const emailBody = encodeURIComponent(
+`Dear ${job.contact.hrName || 'Hiring Manager'},
+
+I am writing to formally apply for the "${job.title}" vacancy at ${job.company}.
+
+Applicant Details:
+• Name: ${studentName}
+• Phone: ${studentMobile}
+• Relevant Skills: ${studentSkills}
+• Matching Role Requirements: ${job.skills.join(', ')}
+
+I look forward to discussing how my experience fits this role.
+
+Sincerely,
+${studentName}
+${studentMobile}`
+        );
+
+        const mailtoUrl = `mailto:${job.contact.email}?subject=${emailSubject}&body=${emailBody}`;
+
+        // WhatsApp message
+        const waText = encodeURIComponent(
+          `Hello ${job.contact.hrName || 'HR'}, I am ${studentName}. I am interested in applying for the "${job.title}" vacancy at ${job.company}. My contact number is ${studentMobile}.`
+        );
+        const waUrl = `https://wa.me/${(job.contact.whatsapp || '').replace(/[^0-9]/g, '')}?text=${waText}`;
+
+        return `
+          <div class="job-card">
+            <div class="job-card-top">
+              <div>
+                <div class="job-badges-mobile">
+                  <span class="match-badge">🔥 ${job.matchScore || 85}% Match</span>
+                  <span class="source-tag ${getSourceClass(job.source)}">${job.source}</span>
+                </div>
+                <div class="job-role-info">
+                  <h4>${job.title}</h4>
+                  <div class="job-company">
+                    <span>🏢 ${job.company}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="job-meta-row">
+              <span class="job-meta-item">📍 ${job.location}</span>
+              <span class="job-meta-item">💼 ${job.type}</span>
+              <span class="job-meta-item">⏳ ${job.experience}</span>
+              <span class="job-meta-item" style="color: #38bdf8; font-weight: 700;">💰 ${job.salary}</span>
+            </div>
+
+            <p class="job-desc">${job.description}</p>
+
+            <div>
+              <div class="skills-heading">Required Skills</div>
+              <ul class="skills-list">
+                ${job.skills.map(s => {
+                  const isMatched = job.matchedSkills && job.matchedSkills.some(ms => ms.toLowerCase().includes(s.toLowerCase()) || s.toLowerCase().includes(ms.toLowerCase()));
+                  return `<li class="skill-tag" style="${isMatched ? 'background: rgba(16, 185, 129, 0.25); color: #6ee7b7; border-color: rgba(16, 185, 129, 0.5);' : ''}">${s}${isMatched ? ' ✓' : ''}</li>`;
+                }).join('')}
+              </ul>
+            </div>
+
+            <!-- Verified Recruiter Contact Box -->
+            <div class="hr-contact-box">
+              <div class="hr-contact-title">
+                <span>📞</span> Recruiter & Contact Details:
+              </div>
+              <div class="hr-details-grid">
+                <div class="hr-detail-item">
+                  <span>👤</span>
+                  <strong>${job.contact.hrName}</strong>
+                </div>
+                <div class="hr-detail-item">
+                  <span>📧</span>
+                  <a href="${mailtoUrl}" title="Email Recruiter">${job.contact.email}</a>
+                </div>
+                <div class="hr-detail-item">
+                  <span>📱</span>
+                  <a href="tel:${(job.contact.phone || '').replace(/\\s+/g, '')}">${job.contact.phone}</a>
+                </div>
+                <div class="hr-detail-item">
+                  <span>🏢</span>
+                  <span style="color: #94a3b8; font-size: 0.8rem;">${job.contact.address}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mobile-Optimized Action Buttons Grid -->
+            <div class="job-actions-grid">
+              <a href="${mailtoUrl}" class="btn-apply-email">
+                <span>✉️</span> Easy Apply via Email
+              </a>
+
+              ${job.contact.whatsapp ? `
+                <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="btn-apply-wa">
+                  <span>💬</span> WhatsApp HR
+                </a>
+              ` : ''}
+
+              <a href="tel:${(job.contact.phone || '').replace(/\\s+/g, '')}" class="btn-call-recruiter">
+                <span>📞</span> Call HR
+              </a>
+
+              <a href="${job.sourceUrl}" target="_blank" rel="noopener noreferrer" class="btn-view-portal">
+                <span>🔗</span> View on ${job.source} ↗
+              </a>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function filterJobsBySource(selectedSource) {
+      const container = document.getElementById('renderedJobsList');
+      if (!container) return;
+
+      let filtered = currentJobsList;
+      if (selectedSource && selectedSource !== 'All') {
+        filtered = currentJobsList.filter(j => j.source.toLowerCase().includes(selectedSource.toLowerCase()));
+      }
+      container.innerHTML = renderJobListItems(filtered, activeStudent);
+    }
+
+    // Modal Handling for Editing Student
+    const editDialog = document.getElementById('editDialog');
+    const editForm = document.getElementById('editForm');
+    const editId = document.getElementById('editId');
+    const editName = document.getElementById('editName');
+    const editMobile = document.getElementById('editMobile');
+    const editSkills = document.getElementById('editSkills');
+
+    function openEditModal(id) {
+      const student = allStudents.find(s => s.id === id);
+      if (!student) return;
+
+      editId.value = student.id;
+      editName.value = student.name;
+      editMobile.value = student.mobile;
+      editSkills.value = student.skills.join(', ');
+      document.getElementById('editDialogTitle').textContent = `Edit #${student.id}: ${student.name.split(' ')[0]}`;
+      editDialog.showModal();
+    }
+
+    function closeEditModal() {
+      editDialog.close();
+    }
+
+    editDialog.addEventListener('click', (e) => {
+      if (e.target === editDialog) {
+        editDialog.close();
+      }
+    });
+
+    editForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = editId.value;
+      const updatedPayload = {
+        name: editName.value,
+        mobile: editMobile.value,
+        skills: editSkills.value.split(',').map(s => s.trim()).filter(Boolean)
+      };
+
+      try {
+        const res = await fetch(`/api/students/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(updatedPayload)
+        });
+        const result = await res.json();
+        if (result.success) {
+          const idx = allStudents.findIndex(s => s.id === parseInt(id, 10));
+          if (idx !== -1) {
+            allStudents[idx] = result.data;
+          }
+          renderStudents(allStudents);
+          editDialog.close();
+        } else {
+          alert('Update failed: ' + result.message);
+        }
+      } catch (err) {
+        alert('Error updating student: ' + err.message);
+      }
+    });
+
+    // Search filter for students
+    document.getElementById('search').addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase().trim();
+      const filtered = allStudents.filter(student => {
+        const matchName = student.name.toLowerCase().includes(query);
+        const matchSkill = student.skills.some(skill => skill.toLowerCase().includes(query));
+        return matchName || matchSkill;
+      });
+      renderStudents(filtered);
+    });
+
+    // Initial load
+    loadStudents();
+  </script>
+</body>
+</html>
