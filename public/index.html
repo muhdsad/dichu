@@ -18,6 +18,7 @@
       --primary: #38bdf8;
       --accent: #818cf8;
       --gold: #f59e0b;
+      --gold-light: #fbbf24;
       --skill-bg: #0284c7;
       --skill-text: #e0f2fe;
       --success: #10b981;
@@ -33,16 +34,16 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    /* Mobile First Base Body */
+    /* Base Body */
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background-color: var(--bg);
       color: var(--text-main);
       min-block-size: 100dvh;
-      padding-block-start: max(1rem, env(safe-area-inset-top));
+      padding-block-start: max(1.2rem, env(safe-area-inset-top));
       padding-block-end: max(2rem, env(safe-area-inset-bottom));
-      padding-inline: max(0.85rem, env(safe-area-inset-left));
-      padding-inline-end: max(0.85rem, env(safe-area-inset-right));
+      padding-inline: max(0.9rem, env(safe-area-inset-left));
+      padding-inline-end: max(0.9rem, env(safe-area-inset-right));
       line-height: 1.5;
       overflow-x: hidden;
     }
@@ -53,7 +54,7 @@
       margin-inline: auto;
     }
 
-    /* Mobile First Header */
+    /* Header */
     header {
       margin-block-end: 1.5rem;
       text-align: center;
@@ -63,13 +64,13 @@
     .brand-badge {
       display: inline-flex;
       align-items: center;
-      gap: 0.35rem;
+      gap: 0.4rem;
       background: rgba(56, 189, 248, 0.12);
       border: 1px solid rgba(56, 189, 248, 0.3);
       color: var(--primary);
-      padding: 0.35rem 0.75rem;
+      padding: 0.35rem 0.85rem;
       border-radius: 9999px;
-      font-size: 0.75rem;
+      font-size: 0.78rem;
       font-weight: 700;
       letter-spacing: 0.05em;
       text-transform: uppercase;
@@ -77,7 +78,7 @@
     }
 
     header h1 {
-      font-size: clamp(1.65rem, 1.3rem + 2.4vw, 2.4rem);
+      font-size: clamp(1.7rem, 1.4rem + 2.4vw, 2.5rem);
       font-weight: 800;
       background: linear-gradient(135deg, #38bdf8, #818cf8, #fbbf24);
       -webkit-background-clip: text;
@@ -89,126 +90,181 @@
     header p {
       color: var(--text-muted);
       font-size: clamp(0.9rem, 0.85rem + 0.35vw, 1.05rem);
-      max-inline-size: 720px;
+      max-inline-size: 760px;
       margin-inline: auto;
-      line-height: 1.45;
+      line-height: 1.5;
     }
 
-    /* Controls Container */
-    .controls {
+    /* ========================================================= */
+    /* UNIFIED DUAL SEARCH BAR (WHAT + WHERE / PLACE)            */
+    /* ========================================================= */
+    .search-panel {
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 1.15rem;
+      margin-block-end: 1.75rem;
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
       display: flex;
       flex-direction: column;
-      gap: 0.85rem;
-      margin-block-end: 1.5rem;
-      background: rgba(30, 41, 59, 0.6);
-      padding: 1rem;
-      border-radius: 16px;
-      border: 1px solid var(--card-border);
+      gap: 1rem;
     }
 
-    .search-inputs-group {
+    .unified-search-bar {
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
-      inline-size: 100%;
-    }
-
-    .input-with-icon {
-      position: relative;
-      display: flex;
-      align-items: center;
-      inline-size: 100%;
-    }
-
-    .field-icon {
-      position: absolute;
-      left: 0.85rem;
-      font-size: 1.1rem;
-      pointer-events: none;
-      z-index: 2;
-    }
-
-    .search-input {
-      inline-size: 100%;
-      min-block-size: var(--tap-target-min);
-      padding: 0.75rem 1rem 0.75rem 2.6rem;
-      border-radius: 10px;
-      border: 1px solid var(--card-border);
       background: var(--card-inner);
-      color: var(--text-main);
-      font-size: 1rem;
-      outline: none;
+      border: 2px solid #334155;
+      border-radius: 14px;
+      overflow: hidden;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
 
-    .search-input:focus {
+    .unified-search-bar:focus-within {
       border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
     }
 
-    .place-input:focus {
-      border-color: #fbbf24;
-      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.25);
+    .search-field-block {
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 0.5rem 0.85rem;
+      flex: 1;
     }
 
-    .clear-city-btn {
-      position: absolute;
-      right: 0.75rem;
+    .search-field-block:first-child {
+      border-block-end: 1px solid var(--card-border);
+    }
+
+    .field-icon-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      inline-size: 34px;
+      block-size: 34px;
+      font-size: 1.2rem;
+      color: #94a3b8;
+      flex-shrink: 0;
+      margin-inline-end: 0.5rem;
+    }
+
+    .field-content {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-inline-size: 0;
+    }
+
+    .field-label {
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #94a3b8;
+      margin-block-end: 0.1rem;
+    }
+
+    .field-label.label-place {
+      color: #fbbf24;
+    }
+
+    .field-input {
+      inline-size: 100%;
+      border: none;
+      background: transparent;
+      color: #ffffff;
+      font-size: 1rem;
+      outline: none;
+      min-block-size: 28px;
+    }
+
+    .field-input::placeholder {
+      color: #64748b;
+      font-size: 0.95rem;
+    }
+
+    .clear-field-btn {
       background: rgba(255, 255, 255, 0.1);
       border: none;
-      color: var(--text-muted);
+      color: #cbd5e1;
       border-radius: 50%;
-      width: 24px;
-      height: 24px;
+      inline-size: 26px;
+      block-size: 26px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 1rem;
+      flex-shrink: 0;
+      touch-action: manipulation;
     }
 
-    .clear-city-btn:hover {
-      background: rgba(255, 255, 255, 0.2);
+    .clear-field-btn:hover {
+      background: rgba(255, 255, 255, 0.25);
       color: #fff;
     }
 
-    /* Location Quick Filter Chips Bar */
-    .location-chips-bar {
+    .btn-search-trigger {
+      min-block-size: var(--tap-target-min);
+      background: linear-gradient(135deg, #0284c7, #2563eb);
+      color: #ffffff;
+      border: none;
+      padding: 0.75rem 1.25rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: opacity 0.2s;
+    }
+
+    .btn-search-trigger:hover {
+      opacity: 0.92;
+    }
+
+    /* Destination Chips Row */
+    .destination-chips-row {
       display: flex;
       flex-direction: column;
-      gap: 0.4rem;
-      padding-top: 0.1rem;
+      gap: 0.45rem;
     }
 
-    .chips-label {
+    .chips-title {
       font-size: 0.75rem;
       font-weight: 700;
-      color: var(--text-muted);
+      color: #94a3b8;
       text-transform: uppercase;
       letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
     }
 
-    .chips-scroll {
+    .chips-container {
       display: flex;
       flex-wrap: nowrap;
       overflow-x: auto;
-      gap: 0.45rem;
-      padding-bottom: 0.35rem;
+      gap: 0.5rem;
+      padding-block-end: 0.35rem;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: thin;
     }
 
-    .loc-chip {
+    .dest-chip {
       display: inline-flex;
       align-items: center;
-      gap: 0.3rem;
-      padding: 0.4rem 0.75rem;
+      gap: 0.35rem;
+      padding: 0.4rem 0.8rem;
       border-radius: 9999px;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       font-weight: 600;
       white-space: nowrap;
       border: 1px solid var(--card-border);
-      background: rgba(15, 23, 42, 0.75);
+      background: var(--card-inner);
       color: #cbd5e1;
       cursor: pointer;
       touch-action: manipulation;
@@ -216,42 +272,46 @@
       flex-shrink: 0;
     }
 
-    .loc-chip:hover {
+    .dest-chip:hover {
       background: #334155;
       color: #fff;
     }
 
-    .loc-chip.active {
+    .dest-chip.active {
       background: #0284c7;
       color: #fff;
       border-color: #38bdf8;
-      box-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
     }
 
-    .loc-chip.chip-abroad {
+    .dest-chip.chip-abroad {
       border-color: rgba(245, 158, 11, 0.4);
     }
 
-    .loc-chip.chip-abroad:hover {
+    .dest-chip.chip-abroad:hover {
       border-color: #fbbf24;
-      background: rgba(245, 158, 11, 0.2);
+      background: rgba(245, 158, 11, 0.15);
     }
 
-    .loc-chip.chip-abroad.active {
+    .dest-chip.chip-abroad.active {
       background: linear-gradient(135deg, #d97706, #b45309);
       border-color: #fbbf24;
       color: #fff;
-      box-shadow: 0 0 10px rgba(245, 158, 11, 0.45);
+      box-shadow: 0 0 12px rgba(245, 158, 11, 0.45);
     }
 
-    .action-links {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.6rem;
-      inline-size: 100%;
+    /* Action bar */
+    .action-bar-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding-block-start: 0.5rem;
+      border-block-start: 1px solid rgba(255, 255, 255, 0.08);
     }
 
-    .btn-browse-all {
+    .btn-browse-all-main {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -260,7 +320,7 @@
       background: linear-gradient(135deg, #0284c7, #4f46e5);
       color: #ffffff;
       border: none;
-      padding: 0.65rem 1rem;
+      padding: 0.65rem 1.2rem;
       border-radius: 10px;
       font-size: 0.925rem;
       font-weight: 700;
@@ -269,30 +329,33 @@
       transition: opacity 0.2s;
     }
 
-    .btn-browse-all:active {
-      opacity: 0.85;
+    .btn-browse-all-main:hover {
+      opacity: 0.9;
     }
 
-    .api-badge {
+    .api-links-group {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .api-badge-btn {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      gap: 0.4rem;
-      min-block-size: var(--tap-target-min);
+      gap: 0.35rem;
+      min-block-size: 38px;
       background: var(--card-inner);
       color: var(--primary);
       border: 1px solid var(--card-border);
-      padding: 0.65rem 1rem;
-      border-radius: 10px;
-      font-size: 0.875rem;
+      padding: 0.45rem 0.8rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
       font-weight: 700;
       text-decoration: none;
       touch-action: manipulation;
-      transition: background-color 0.2s, border-color 0.2s;
     }
 
-    .api-badge:active {
-      background-color: var(--card-bg);
+    .api-badge-btn:hover {
+      background: #334155;
       border-color: var(--primary);
     }
 
@@ -312,7 +375,7 @@
       display: flex;
       flex-direction: column;
       gap: 0.85rem;
-      transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
 
     .card:hover {
@@ -349,10 +412,6 @@
       border: 2px solid rgba(255, 255, 255, 0.15);
     }
 
-    .card-title {
-      min-inline-size: 0;
-    }
-
     .card-title h2 {
       font-size: 1.15rem;
       font-weight: 700;
@@ -370,7 +429,6 @@
 
     .edit-btn {
       min-block-size: 38px;
-      min-inline-size: 38px;
       padding: 0.4rem 0.7rem;
       border-radius: 8px;
       border: 1px solid var(--card-border);
@@ -381,14 +439,8 @@
       font-weight: 600;
       display: inline-flex;
       align-items: center;
-      justify-content: center;
       gap: 0.35rem;
       touch-action: manipulation;
-      transition: background-color 0.2s;
-    }
-
-    .edit-btn:active {
-      background-color: #334155;
     }
 
     .contact-row {
@@ -463,13 +515,6 @@
       font-weight: 600;
     }
 
-    .card-actions {
-      margin-block-start: 0.35rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
     .btn-find-jobs {
       min-block-size: var(--tap-target-min);
       inline-size: 100%;
@@ -485,12 +530,6 @@
       justify-content: space-between;
       cursor: pointer;
       touch-action: manipulation;
-      transition: transform 0.15s, opacity 0.2s;
-    }
-
-    .btn-find-jobs:active {
-      transform: scale(0.98);
-      opacity: 0.9;
     }
 
     .badge-tag {
@@ -501,7 +540,7 @@
       font-weight: 600;
     }
 
-    /* Modals base styles */
+    /* Modals */
     dialog {
       background: var(--card-bg);
       color: var(--text-main);
@@ -514,7 +553,6 @@
       margin-block-end: 0;
       box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.6);
       outline: none;
-      transition: transform 0.25s ease-out;
     }
 
     dialog:not([open]) {
@@ -534,7 +572,6 @@
       margin: 0.65rem auto 0.25rem auto;
     }
 
-    /* Jobs Modal Styles */
     dialog#jobsDialog {
       block-size: 92dvh;
       max-block-size: 92dvh;
@@ -553,22 +590,18 @@
     }
 
     .modal-close-btn {
-      min-block-size: 44px;
-      min-inline-size: 44px;
-      width: 44px;
-      height: 44px;
+      inline-size: 44px;
+      block-size: 44px;
       border-radius: 50%;
       border: 1px solid var(--card-border);
       background: var(--card-inner);
       color: var(--text-main);
       font-size: 1.5rem;
-      line-height: 1;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      touch-action: manipulation;
     }
 
     .modal-close-btn:hover {
@@ -580,14 +613,12 @@
       padding: 1rem 0.9rem;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
-      overscroll-behavior: contain;
       display: flex;
       flex-direction: column;
       gap: 1rem;
       flex: 1;
     }
 
-    /* Portals Banner */
     .portal-banner {
       background: rgba(15, 23, 42, 0.7);
       border: 1px solid var(--card-border);
@@ -631,11 +662,6 @@
       white-space: nowrap;
       border: 1px solid rgba(255, 255, 255, 0.15);
       flex-shrink: 0;
-      touch-action: manipulation;
-    }
-
-    .portal-link-btn:active {
-      transform: scale(0.97);
     }
 
     /* Modal Filter Bar */
@@ -666,13 +692,13 @@
       gap: 0.6rem;
     }
 
-    .modal-city-search-box {
+    .modal-filter-field-box {
       position: relative;
       display: flex;
       align-items: center;
     }
 
-    .modal-city-search-box span {
+    .modal-filter-field-box span {
       position: absolute;
       left: 0.75rem;
       font-size: 1rem;
@@ -734,7 +760,7 @@
     }
 
     .job-card.is-abroad {
-      border-color: rgba(245, 158, 11, 0.35);
+      border-color: rgba(245, 158, 11, 0.4);
     }
 
     .job-card-top {
@@ -891,11 +917,7 @@
       font-weight: 600;
     }
 
-    .hr-detail-item a:hover {
-      text-decoration: underline;
-    }
-
-    /* Mobile Buttons Grid */
+    /* Action Buttons Grid */
     .job-actions-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -917,7 +939,6 @@
       justify-content: center;
       gap: 0.4rem;
       text-decoration: none;
-      touch-action: manipulation;
     }
 
     .btn-apply-wa {
@@ -934,7 +955,6 @@
       justify-content: center;
       gap: 0.35rem;
       text-decoration: none;
-      touch-action: manipulation;
     }
 
     .btn-call-recruiter {
@@ -951,7 +971,6 @@
       justify-content: center;
       gap: 0.35rem;
       text-decoration: none;
-      touch-action: manipulation;
     }
 
     .btn-view-portal {
@@ -969,7 +988,6 @@
       justify-content: center;
       gap: 0.35rem;
       text-decoration: none;
-      touch-action: manipulation;
     }
 
     /* Edit Dialog Modal Styles */
@@ -1029,7 +1047,6 @@
       font-weight: 700;
       cursor: pointer;
       border: none;
-      touch-action: manipulation;
     }
 
     .btn-secondary {
@@ -1073,42 +1090,47 @@
     }
 
     /* ========================================================= */
-    /* PROGRESSIVE ENHANCEMENT FOR TABLETS & DESKTOPS (640px+)  */
+    /* PROGRESSIVE ENHANCEMENT FOR TABLETS & DESKTOPS (768px+)  */
     /* ========================================================= */
-    @media (min-width: 640px) {
+    @media (min-width: 768px) {
       body {
-        padding-block: 2rem 3rem;
+        padding-block: 2.2rem 3.5rem;
         padding-inline: 1.5rem;
       }
 
-      .search-inputs-group {
+      .unified-search-bar {
         flex-direction: row;
-        align-items: center;
+        align-items: stretch;
       }
 
-      .location-chips-bar {
+      .search-field-block:first-child {
+        border-block-end: none;
+        border-inline-end: 1px solid var(--card-border);
+        flex: 1.3;
+      }
+
+      .search-field-block:nth-child(2) {
+        flex: 1.1;
+      }
+
+      .btn-search-trigger {
+        padding-inline: 1.75rem;
+      }
+
+      .destination-chips-row {
         flex-direction: row;
         align-items: center;
         gap: 0.75rem;
       }
 
-      .chips-scroll {
+      .chips-container {
         flex-wrap: wrap;
         overflow-x: visible;
-      }
-
-      .action-links {
-        display: flex;
-        inline-size: auto;
       }
 
       .grid {
         grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
         gap: 1.4rem;
-      }
-
-      .card {
-        padding: 1.35rem;
       }
 
       dialog#jobsDialog {
@@ -1152,7 +1174,7 @@
       }
 
       .modal-city-field {
-        inline-size: 200px;
+        inline-size: 210px;
       }
 
       .modal-selects-row {
@@ -1206,64 +1228,81 @@
 <body>
   <div class="container">
     <header>
-      <div class="brand-badge">⚡ Global Placement & Vacancy Hub</div>
+      <div class="brand-badge">⚡ Global Placement & Job Vacancy Hub</div>
       <h1>Student Directory & Global Vacancies</h1>
-      <p>Verified openings across India & Middle East / Abroad (Dubai, Abu Dhabi, Doha, Riyadh, Muscat) with direct recruiter contact details.</p>
+      <p>Instant verified vacancies across India & Middle East / Abroad (Dubai, Abu Dhabi, Doha, Riyadh, Muscat) with direct recruiter contact details.</p>
     </header>
 
-    <div class="controls">
-      <!-- Search Fields Group (Student/Skill + City/Place) -->
-      <div class="search-inputs-group">
-        <div class="input-with-icon" style="flex: 1.3;">
-          <span class="field-icon">🔍</span>
-          <input
-            type="search"
-            id="search"
-            class="search-input"
-            placeholder="Search student or skill (e.g. iPhone Tech, React, Supermarket)..."
-            aria-label="Search students"
-          >
+    <!-- UNIFIED SEARCH PANEL WITH WHAT & WHERE (PLACE) FIELDS -->
+    <div class="search-panel">
+      <div class="unified-search-bar">
+        <!-- Field 1: Role / Skill / Student -->
+        <div class="search-field-block">
+          <div class="field-icon-wrapper">🔍</div>
+          <div class="field-content">
+            <span class="field-label">Role, Skill or Student</span>
+            <input
+              type="search"
+              id="search"
+              class="field-input"
+              placeholder="e.g. iPhone Tech, React, Supermarket..."
+              aria-label="Search by role, skills or student name"
+            >
+          </div>
+          <button type="button" id="clearSkillBtn" class="clear-field-btn" onclick="clearSkillSearch()" title="Clear" style="display: none;">&times;</button>
         </div>
 
-        <div class="input-with-icon place-field-container" style="flex: 1;">
-          <span class="field-icon">📍</span>
-          <input
-            type="search"
-            id="citySearch"
-            class="search-input place-input"
-            placeholder="Search city / abroad (e.g. Dubai, Doha, Riyadh, Bengaluru...)"
-            aria-label="Search by city or country"
-          >
-          <button type="button" id="clearCityBtn" class="clear-city-btn" onclick="clearCitySearch()" title="Clear City Search" style="display: none;">&times;</button>
+        <!-- Field 2: Place / City / Abroad Field -->
+        <div class="search-field-block">
+          <div class="field-icon-wrapper" style="color: #fbbf24;">📍</div>
+          <div class="field-content">
+            <span class="field-label label-place">City, Country or Abroad</span>
+            <input
+              type="search"
+              id="citySearch"
+              class="field-input"
+              placeholder="e.g. Dubai, Riyadh, Doha, Bengaluru, Abroad..."
+              aria-label="Search by city, country or abroad"
+            >
+          </div>
+          <button type="button" id="clearCityBtn" class="clear-field-btn" onclick="clearCitySearch()" title="Clear" style="display: none;">&times;</button>
         </div>
-      </div>
 
-      <!-- Quick Destination Chips -->
-      <div class="location-chips-bar">
-        <span class="chips-label">📍 Destination:</span>
-        <div class="chips-scroll">
-          <button type="button" class="loc-chip active" data-loc="" onclick="selectLocationChip('')">🌐 All Places</button>
-          <button type="button" class="loc-chip chip-abroad" data-loc="Dubai" onclick="selectLocationChip('Dubai')">🇦🇪 Dubai, UAE</button>
-          <button type="button" class="loc-chip chip-abroad" data-loc="Riyadh" onclick="selectLocationChip('Riyadh')">🇸🇦 Riyadh, KSA</button>
-          <button type="button" class="loc-chip chip-abroad" data-loc="Doha" onclick="selectLocationChip('Doha')">🇶🇦 Doha, Qatar</button>
-          <button type="button" class="loc-chip chip-abroad" data-loc="Middle East" onclick="selectLocationChip('Middle East')">✈️ Middle East / Abroad</button>
-          <button type="button" class="loc-chip" data-loc="Bengaluru" onclick="selectLocationChip('Bengaluru')">🇮🇳 Bengaluru</button>
-          <button type="button" class="loc-chip" data-loc="Mumbai" onclick="selectLocationChip('Mumbai')">🇮🇳 Mumbai</button>
-          <button type="button" class="loc-chip" data-loc="Delhi" onclick="selectLocationChip('Delhi')">🇮🇳 Delhi-NCR</button>
-        </div>
-      </div>
-
-      <!-- Action Links -->
-      <div class="action-links">
-        <button class="btn-browse-all" onclick="openAllJobsModal()">
-          <span>💼 Browse All Vacancies</span>
+        <!-- Search Submit Action -->
+        <button type="button" class="btn-search-trigger" onclick="triggerSearchAction()">
+          <span>🔍</span>
+          <span>Find Jobs</span>
         </button>
-        <a href="/api/students" target="_blank" class="api-badge" title="Open JSON API">
-          <span>⚡ Students API</span>
-        </a>
-        <a href="/api/jobs" target="_blank" class="api-badge" title="Open Jobs JSON API">
-          <span>💼 Jobs API</span>
-        </a>
+      </div>
+
+      <!-- Quick Destination Preset Chips -->
+      <div class="destination-chips-row">
+        <span class="chips-title">📍 Popular Destinations:</span>
+        <div class="chips-container">
+          <button type="button" class="dest-chip active" data-loc="" onclick="selectLocationChip('')">🌐 All Places</button>
+          <button type="button" class="dest-chip chip-abroad" data-loc="Dubai" onclick="selectLocationChip('Dubai')">🇦🇪 Dubai, UAE</button>
+          <button type="button" class="dest-chip chip-abroad" data-loc="Riyadh" onclick="selectLocationChip('Riyadh')">🇸🇦 Riyadh, KSA</button>
+          <button type="button" class="dest-chip chip-abroad" data-loc="Doha" onclick="selectLocationChip('Doha')">🇶🇦 Doha, Qatar</button>
+          <button type="button" class="dest-chip chip-abroad" data-loc="Middle East" onclick="selectLocationChip('Middle East')">✈️ Middle East / Abroad</button>
+          <button type="button" class="dest-chip" data-loc="Bengaluru" onclick="selectLocationChip('Bengaluru')">🇮🇳 Bengaluru</button>
+          <button type="button" class="dest-chip" data-loc="Mumbai" onclick="selectLocationChip('Mumbai')">🇮🇳 Mumbai</button>
+          <button type="button" class="dest-chip" data-loc="Delhi" onclick="selectLocationChip('Delhi')">🇮🇳 Delhi-NCR</button>
+        </div>
+      </div>
+
+      <!-- Action bar row -->
+      <div class="action-bar-row">
+        <button class="btn-browse-all-main" onclick="openAllJobsModal()">
+          <span>💼 Browse All Vacancies (Middle East & India)</span>
+        </button>
+        <div class="api-links-group">
+          <a href="/api/students" target="_blank" class="api-badge-btn" title="Open Students JSON API">
+            <span>⚡ Students API</span>
+          </a>
+          <a href="/api/jobs" target="_blank" class="api-badge-btn" title="Open Jobs JSON API">
+            <span>💼 Jobs API</span>
+          </a>
+        </div>
       </div>
     </div>
 
@@ -1452,7 +1491,7 @@
         let matchCity = true;
         if (city) {
           const loc = (student.location || '').toLowerCase();
-          if (city === 'middle east' || city === 'abroad') {
+          if (city === 'middle east' || city === 'abroad' || city === 'gulf') {
             matchCity = loc.includes('dubai') || loc.includes('saudi') || loc.includes('middle east') || loc.includes('abroad') || loc.includes('qatar') || loc.includes('uae');
           } else {
             matchCity = loc.includes(city);
@@ -1574,6 +1613,17 @@
       }
     }
 
+    function triggerSearchAction() {
+      const q = (document.getElementById('search').value || '').trim();
+      const city = (document.getElementById('citySearch').value || '').trim();
+
+      if (q || city) {
+        openAllJobsModal();
+      } else {
+        openAllJobsModal();
+      }
+    }
+
     function renderJobsContent(data) {
       const { externalPortals, data: jobs, student } = data;
 
@@ -1598,7 +1648,7 @@
         `;
       }
 
-      // Filter bar with City Place input + Region + Source
+      // Filter bar with Place/City filter + Region + Source
       const filterHtml = `
         <div class="jobs-filter-bar">
           <div class="filter-count" id="modalFilterCount">
@@ -1607,13 +1657,13 @@
             ${activeCityFilter ? `in <span class="highlight-place">${activeCityFilter}</span>` : ''}
           </div>
           <div class="modal-filters-controls">
-            <div class="modal-city-search-box">
+            <div class="modal-filter-field-box">
               <span>📍</span>
               <input
                 type="search"
                 id="modalCityInput"
                 class="modal-city-field"
-                placeholder="Filter by city (e.g. Dubai, Riyadh, Doha, Bengaluru...)"
+                placeholder="Filter city (e.g. Dubai, Riyadh, Doha)..."
                 value="${activeCityFilter || ''}"
                 oninput="handleModalCityFilter(this.value)"
               >
@@ -1658,7 +1708,6 @@
 
       jobsModalBody.innerHTML = portalsHtml + filterHtml + jobsListHtml;
 
-      // Sync select dropdowns
       if (activeRegionFilter && document.getElementById('regionFilter')) {
         document.getElementById('regionFilter').value = activeRegionFilter;
       }
@@ -1748,7 +1797,7 @@
           <div class="empty-state">
             <p><strong>No matching vacancies found for this filter.</strong></p>
             <p style="margin-top: 0.5rem; font-size: 0.85rem; color: #94a3b8;">
-              Try clearing the city search or exploring direct opportunities on <strong>NaukriGulf</strong>, <strong>Bayt</strong>, or <strong>LinkedIn</strong> via the links above!
+              Try searching 'Dubai', 'Riyadh', 'Doha', 'Bengaluru' or exploring direct vacancies on <strong>NaukriGulf</strong> and <strong>Bayt</strong> above!
             </p>
           </div>
         `;
@@ -1858,7 +1907,7 @@ ${studentMobile}`
               </div>
             </div>
 
-            <!-- Mobile-Optimized Action Buttons Grid -->
+            <!-- Action Buttons Grid -->
             <div class="job-actions-grid">
               <a href="${mailtoUrl}" class="btn-apply-email">
                 <span>✉️</span> Easy Apply via Email
@@ -1953,10 +2002,22 @@ ${studentMobile}`
     });
 
     // Main Page Search Handlers
-    document.getElementById('search').addEventListener('input', filterStudentsList);
-
+    const searchInput = document.getElementById('search');
+    const clearSkillBtn = document.getElementById('clearSkillBtn');
     const citySearchInput = document.getElementById('citySearch');
     const clearCityBtn = document.getElementById('clearCityBtn');
+
+    searchInput.addEventListener('input', (e) => {
+      const val = e.target.value.trim();
+      clearSkillBtn.style.display = val ? 'flex' : 'none';
+      filterStudentsList();
+    });
+
+    function clearSkillSearch() {
+      searchInput.value = '';
+      clearSkillBtn.style.display = 'none';
+      filterStudentsList();
+    }
 
     citySearchInput.addEventListener('input', (e) => {
       const val = e.target.value.trim();
@@ -1981,7 +2042,7 @@ ${studentMobile}`
 
     function updateChipActiveState(location) {
       const locClean = (location || '').toLowerCase();
-      document.querySelectorAll('.loc-chip').forEach(chip => {
+      document.querySelectorAll('.dest-chip').forEach(chip => {
         const chipLoc = (chip.getAttribute('data-loc') || '').toLowerCase();
         if (!locClean && !chipLoc) {
           chip.classList.add('active');
